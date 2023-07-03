@@ -12,9 +12,9 @@ public class PawnTest {
         final String blackColor = "black";
 
         Pawn pawn = new Pawn(whiteColor);
-        assertThat(pawn.getColor()).isEqualTo(whiteColor);
+        assertThat(pawn.verifyPawn(whiteColor)).isEqualTo(true);
 
         Pawn secondPawn = new Pawn(blackColor);
-        assertThat(secondPawn.getColor()).isEqualTo(blackColor);
+        assertThat(secondPawn.verifyPawn(blackColor)).isEqualTo(true);
     }
 }
