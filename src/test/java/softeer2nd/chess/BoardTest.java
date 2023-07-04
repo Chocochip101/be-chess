@@ -1,5 +1,6 @@
 package softeer2nd.chess;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.pieces.Pawn;
 
@@ -8,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
     @Test
+    @DisplayName("체스판에 폰이 추가되는지 확인한다.")
     public void create() throws Exception {
         Board board = new Board();
 
