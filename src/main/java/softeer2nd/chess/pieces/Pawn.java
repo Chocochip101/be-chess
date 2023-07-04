@@ -1,4 +1,4 @@
-package softeer2nd.chess;
+package softeer2nd.chess.pieces;
 
 public class Pawn {
     public final static Integer WHITE_COLOR = 1;
@@ -9,7 +9,7 @@ public class Pawn {
         this.color = WHITE_COLOR;
     }
 
-    Pawn(final Integer color) {
+    public Pawn(final Integer color) {
         this.color = color;
     }
 
