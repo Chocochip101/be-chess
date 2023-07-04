@@ -1,4 +1,4 @@
-package softeer2nd;
+package softeer2nd.chess;
 
 public class Pawn {
     public final static Integer WHITE_COLOR = 1;
