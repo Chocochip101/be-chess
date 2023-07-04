@@ -15,11 +15,11 @@ public class Board {
         pawnList.add(pawn);
     }
 
-    public Integer size() {
+    public int size() {
         return pawnList.size();
     }
 
-    public Pawn findPawn(Integer idx) {
+    public Pawn findPawn(int idx) {
         return pawnList.get(idx);
     }
 }
