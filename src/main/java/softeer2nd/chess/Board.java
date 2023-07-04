@@ -8,7 +8,7 @@ import java.util.List;
 public class Board {
     private final List<Pawn> pawnList = new ArrayList<>();
 
-    Board() {
+    public Board() {
     }
 
     public void add(Pawn pawn) {

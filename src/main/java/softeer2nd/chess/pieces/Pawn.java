@@ -6,7 +6,7 @@ public class Pawn {
     public final static String BLACK_COLOR = "black";
     private String color;
 
-    Pawn() {
+    public Pawn() {
         this.color = WHITE_COLOR;
     }
 

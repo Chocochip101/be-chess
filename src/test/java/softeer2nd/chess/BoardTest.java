@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class BoardTest {
-    Board board;
-    Pawn white;
-    Pawn black;
+    private Board board;
+    private Pawn white;
+    private Pawn black;
 
     @BeforeEach
     void setup() {
