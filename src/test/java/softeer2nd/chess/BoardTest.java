@@ -16,8 +16,8 @@ public class BoardTest {
     @BeforeEach
     void setup() {
         board = new Board();
-        white = new Pawn(Pawn.WHITE_COLOR);
-        black = new Pawn(Pawn.BLACK_COLOR);
+        white = new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION, 6, 0);
+        black = new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION, 1, 1);
     }
 
     @Test
@@ -37,5 +37,13 @@ public class BoardTest {
     public void addNotPawn() throws Exception {
 
 //        assertThrows(board.add(new Integer("7")));
+    }
+
+    @Test
+    @DisplayName("getPawnsResult의 결과값을 검증한다.")
+    public void initialize() throws Exception {
+        board.initialize();
+        assertEquals("pppppppp", board.getWhitePawnsResult());
+        assertEquals("PPPPPPPP", board.getBlackPawnsResult());
     }
 }
