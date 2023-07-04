@@ -4,17 +4,17 @@
   - [X] PawnTest에 색이 없는 Pawn을 생성하는 테스트 추가
 - [X] 색깔을 상수로 변경
   - [X] Pawn 클래스에 색을 나타내는 상수 추가
-- [ ] Board 클래스 구현 
-  - [ ] Board 클래스 생성 
-  - [ ] Pawn 객체를 저장할 수 있는 멤버 변수로 추가 
-  - [ ] Pawn을 추가하는 기능 구현
+- [X] Board 클래스 구현 
+  - [X] Board 클래스 생성 
+  - [X] Pawn 객체를 저장할 수 있는 멤버 변수로 추가 
+  - [X] Pawn을 추가하는 기능 구현
 
 ## Test
-- [ ] BoardTest 추가 
-  - [ ] BoardTest 클래스 생성 
-  - [ ] Board에 Pawn을 추가하는 테스트 추가 
-  - [ ] Pawn의 수가 맞는지 확인하는 테스트 추가 
-  - [ ] 추가한 Pawn이 정상적으로 보드에 추가되었는지 확인하는 테스트 추가
+- [X] BoardTest 추가 
+  - [X] BoardTest 클래스 생성 
+  - [X] Board에 Pawn을 추가하는 테스트 추가 
+  - [X] Pawn의 수가 맞는지 확인하는 테스트 추가 
+  - [X] 추가한 Pawn이 정상적으로 보드에 추가되었는지 확인하는 테스트 추가
 
 ## Refactor
 - [ ] 패키지 분리 
