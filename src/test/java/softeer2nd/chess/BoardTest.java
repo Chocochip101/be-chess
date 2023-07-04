@@ -23,4 +23,12 @@ public class BoardTest {
         assertEquals(2, board.size());
         assertEquals(black, board.findPawn(1));
     }
+
+    @Test
+    @DisplayName("체스판에 폰 이외에 추가 시 컴파일 에러를 발생한다.")
+    public void addNotPawn() throws Exception {
+        Board board = new Board();
+
+//        assertThrows(board.add(new Integer("7")));
+    }
 }
