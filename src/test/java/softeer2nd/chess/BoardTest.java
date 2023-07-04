@@ -46,4 +46,13 @@ public class BoardTest {
         assertEquals("pppppppp", board.getWhitePawnsResult());
         assertEquals("PPPPPPPP", board.getBlackPawnsResult());
     }
+
+    @Test
+    @DisplayName("initialize() 실행 시 폰이 16개 생성된다.")
+    public void initializePawnCount() {
+        board.add(white);
+        board.initialize();
+        assertEquals(board.size(), 16);
+    }
+
 }
