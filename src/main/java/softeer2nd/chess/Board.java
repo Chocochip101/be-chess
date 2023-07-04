@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Board {
+    public final static int ROW_COUNT = 8;
+    public final static int COL_COUNT = 8;
     private final List<Pawn> pawnList = new ArrayList<>();
 
     public Board() {
@@ -26,7 +28,7 @@ public class Board {
 
     public void initialize() {
         pawnList.clear();
-        for (int line = 0; line < 8; ++line) {
+        for (int line = 0; line < ROW_COUNT; ++line) {
             pawnList.add(new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION, 6, line));
             pawnList.add(new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION, 1, line));
         }
@@ -35,18 +37,18 @@ public class Board {
     public void print() {
         StringBuilder stringBuilder = new StringBuilder();
         buildPrintString(stringBuilder);
-        System.out.println(stringBuilder);
+        System.out.println(stringBuilder.toString());
     }
 
     private void buildPrintString(StringBuilder stringBuilder) {
-        for (int col = 0; col < 8; ++col) {
+        for (int col = 0; col < COL_COUNT; ++col) {
             buildRowString(stringBuilder, col);
             stringBuilder.append("\n");
         }
     }
 
     private void buildRowString(StringBuilder stringBuilder, int rowIndex) {
-        for (int col = 0; col < 8; ++col) {
+        for (int col = 0; col < COL_COUNT; ++col) {
             boolean isPawnPresent = isPawnAtPosition(rowIndex, col);
             if (isPawnPresent) {
                 stringBuilder.append(getPawnSymbol(rowIndex, col));
