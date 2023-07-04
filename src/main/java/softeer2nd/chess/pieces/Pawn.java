@@ -1,23 +1,24 @@
 package softeer2nd.chess.pieces;
 
 public class Pawn {
-    public final static Integer WHITE_COLOR = 1;
-    public final static Integer BLACK_COLOR = 2;
-    private Integer color;
+    public final static String WHITE_COLOR = "white";
+
+    public final static String BLACK_COLOR = "black";
+    private String color;
 
     Pawn() {
         this.color = WHITE_COLOR;
     }
 
-    public Pawn(final Integer color) {
+    public Pawn(final String color) {
         this.color = color;
     }
 
-    public Integer getColor() {
+    public String getColor() {
         return this.color;
     }
 
-    public boolean verifyPawn(final Integer color) {
+    public boolean verifyPawn(final String color) {
         return this.color.equals(color);
     }
 }
