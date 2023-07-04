@@ -21,12 +21,16 @@ public class PawnTest {
     }
 
     @Test
-    public void create_기본생성자() throws Exception {
-        Pawn pawn = new Pawn();
-        assertThat(verifyPawn(pawn, Pawn.WHITE_COLOR)).isEqualTo(true);
+    @DisplayName("색상에 맞는 폰이 생성되어야 한다")
+    public void create() {
+        verifyPawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION);
+        verifyPawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
     }
 
-    private boolean verifyPawn(Pawn pawn, final String color) {
-        return pawn.getColor().equals(color);
+
+    private void verifyPawn(final String color, final char representation) {
+        Pawn pawn = new Pawn(color, representation, 0, 0);
+        assertEquals(color, pawn.getColor());
+        assertEquals(representation, pawn.getRepresentation());
     }
 }
