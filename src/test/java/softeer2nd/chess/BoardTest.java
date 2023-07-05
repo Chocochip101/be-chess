@@ -4,8 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.pieces.Piece;
+import softeer2nd.chess.pieces.Point;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static softeer2nd.chess.utils.StringUtils.appendNewLine;
 
 
 public class BoardTest {
@@ -16,35 +18,16 @@ public class BoardTest {
     @BeforeEach
     void setup() {
         board = new Board();
-        white = new Piece(Piece.WHITE_COLOR, Piece.WHITE_REPRESENTATION, 6, 0);
-        black = new Piece(Piece.BLACK_COLOR, Piece.BLACK_REPRESENTATION, 1, 1);
-    }
-
-    @Test
-    @DisplayName("체스판에 폰이 추가되는지 확인한다.")
-    public void create() throws Exception {
-        board.add(white);
-        assertEquals(1, board.size());
-        assertEquals(white, board.findPiece(0));
-
-        board.add(black);
-        assertEquals(2, board.size());
-        assertEquals(black, board.findPiece(1));
-    }
-
-    @Test
-    @DisplayName("체스판에 폰 이외에 추가 시 컴파일 에러를 발생한다.")
-    public void addNotPawn() throws Exception {
-
-//        assertThrows(board.add(new Integer("7")));
+        white = Piece.createWhitePawn(new Point(0, 0));
+        black = Piece.createBlackPawn(new Point(1, 1));
     }
 
     @Test
     @DisplayName("getPawnsResult의 결과값을 검증한다.")
     public void initialize() throws Exception {
         board.initialize();
-        assertEquals("pppppppp", board.getWhitePiecesResult());
-        assertEquals("PPPPPPPP", board.getBlackPiecesResult());
+        assertEquals("pppppppprrnnbbqk", board.getWhitePiecesResult());
+        assertEquals("PPPPPPPPRRNNBBQK", board.getBlackPiecesResult());
     }
 
     @Test
@@ -52,7 +35,19 @@ public class BoardTest {
     public void initializePieceCount() {
         board.add(white);
         board.initialize();
-        assertEquals(board.size(), 16);
+        assertEquals(board.pieceCount(), 32);
     }
 
+    @Test
+    public void create() throws Exception {
+        board.initialize();
+        String blankRank = appendNewLine("........");
+        assertEquals(
+                appendNewLine("RNBQKBNR") +
+                        appendNewLine("PPPPPPPP") +
+                        blankRank + blankRank + blankRank + blankRank +
+                        appendNewLine("pppppppp") +
+                        appendNewLine("rnbqkbnr"),
+                board.showBoard());
+    }
 }
