@@ -6,6 +6,7 @@ import softeer2nd.chess.pieces.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static softeer2nd.chess.pieces.Piece.*;
 
@@ -72,10 +73,12 @@ public class Board {
     }
 
     private void initializePawn() {
-        for (int line = 0; line < ROW_COUNT; ++line) {
-            pieceList.add(createWhitePawn(new Point(6, line)));
-            pieceList.add(createBlackPawn(new Point(1, line)));
-        }
+        IntStream.range(0, ROW_COUNT)
+                .forEach(line -> {
+                    pieceList.add(createWhitePawn(new Point(6, line)));
+                    pieceList.add(createBlackPawn(new Point(1, line)));
+                });
+
     }
 
     public void print() {
@@ -85,21 +88,24 @@ public class Board {
     }
 
     private void buildPrintString(StringBuilder stringBuilder) {
-        for (int col = 0; col < COL_COUNT; ++col) {
-            buildRowString(stringBuilder, col);
-            stringBuilder.append("\n");
-        }
+        IntStream.range(0, COL_COUNT)
+                .forEach(col -> {
+                            buildRowString(stringBuilder, col);
+                            stringBuilder.append("\n");
+                        }
+                );
     }
 
     private void buildRowString(StringBuilder stringBuilder, int rowIndex) {
-        for (int col = 0; col < COL_COUNT; ++col) {
-            boolean isPiecePresent = isPieceAtPosition(rowIndex, col);
-            if (isPiecePresent) {
-                stringBuilder.append(getPieceSymbol(rowIndex, col));
-            } else {
-                stringBuilder.append(".");
-            }
-        }
+        IntStream.range(0, COL_COUNT)
+                .forEach(col -> {
+                    boolean isPiecePresent = isPieceAtPosition(rowIndex, col);
+                    if (isPiecePresent) {
+                        stringBuilder.append(getPieceSymbol(rowIndex, col));
+                    } else {
+                        stringBuilder.append(".");
+                    }
+                });
     }
 
     private boolean isPieceAtPosition(int x, int y) {
