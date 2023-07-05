@@ -17,4 +17,4 @@
 - [ ] 코드 및 변수 이름 리팩토링
 - [ ] 단순화 가능한 부분을 검토하고 리팩토링
 - [X] IntStream으로 리팩토링
-- [ ] MAGIC NUMBER 리팩토링
+- [X] MAGIC NUMBER 리팩토링

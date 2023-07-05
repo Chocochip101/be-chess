@@ -11,8 +11,27 @@ import java.util.stream.IntStream;
 import static softeer2nd.chess.pieces.Piece.*;
 
 public class Board {
-    public final static int ROW_COUNT = 8;
-    public final static int COL_COUNT = 8;
+    private final static int ROW_COUNT = 8;
+    private final static int COL_COUNT = 8;
+    private final static int WHITE_PAWN_ROW = 6;
+    private final static int BLACK_PAWN_ROW = 1;
+    private final static int WHITE_PIECE_ROW = 7;
+    private final static int BLACK_PIECE_ROW = 0;
+    private final static int WHITE_ROOK_LEFT_COL = 0;
+    private final static int WHITE_ROOK_RIGHT_COL = 7;
+    private final static int BLACK_ROOK_LEFT_COL = 0;
+    private final static int BLACK_ROOK_RIGHT_COL = 7;
+    private final static int WHITE_KNIGHT_LEFT_COL = 1;
+    private final static int WHITE_KNIGHT_RIGHT_COL = 6;
+    private final static int BLACK_KNIGHT_LEFT_COL = 1;
+    private final static int BLACK_KNIGHT_RIGHT_COL = 6;
+    private final static int WHITE_BISHOP_LEFT_COL = 2;
+    private final static int WHITE_BISHOP_RIGHT_COL = 5;
+    private final static int BLACK_BISHOP_LEFT_COL = 2;
+    private final static int BLACK_BISHOP_RIGHT_COL = 5;
+    private final static int QUEEN_COL = 3;
+    private final static int KING_COL = 4;
+
     private final List<Piece> pieceList = new ArrayList<>();
 
     public Board() {
@@ -42,41 +61,41 @@ public class Board {
     }
 
     private void initializeKing() {
-        pieceList.add(createWhiteKing(new Point(7, 4)));
-        pieceList.add(createBlackKing(new Point(0, 4)));
+        pieceList.add(createWhiteKing(new Point(WHITE_PIECE_ROW, KING_COL)));
+        pieceList.add(createBlackKing(new Point(BLACK_PIECE_ROW, KING_COL)));
     }
 
     private void initializeQueen() {
-        pieceList.add(createWhiteQueen(new Point(7, 3)));
-        pieceList.add(createBlackQueen(new Point(0, 3)));
+        pieceList.add(createWhiteQueen(new Point(WHITE_PIECE_ROW, QUEEN_COL)));
+        pieceList.add(createBlackQueen(new Point(BLACK_PIECE_ROW, QUEEN_COL)));
     }
 
     private void initializeBishop() {
-        pieceList.add(createWhiteBishop(new Point(7, 2)));
-        pieceList.add(createWhiteBishop(new Point(7, 5)));
-        pieceList.add(createBlackBishop(new Point(0, 2)));
-        pieceList.add(createBlackBishop(new Point(0, 5)));
+        pieceList.add(createWhiteBishop(new Point(WHITE_PIECE_ROW, WHITE_BISHOP_LEFT_COL)));
+        pieceList.add(createWhiteBishop(new Point(WHITE_PIECE_ROW, WHITE_BISHOP_RIGHT_COL)));
+        pieceList.add(createBlackBishop(new Point(BLACK_PIECE_ROW, BLACK_BISHOP_LEFT_COL)));
+        pieceList.add(createBlackBishop(new Point(BLACK_PIECE_ROW, BLACK_BISHOP_RIGHT_COL)));
     }
 
     private void initializeKnight() {
-        pieceList.add(createWhiteKnight(new Point(7, 1)));
-        pieceList.add(createWhiteKnight(new Point(7, 6)));
-        pieceList.add(createBlackKnight(new Point(0, 1)));
-        pieceList.add(createBlackKnight(new Point(0, 6)));
+        pieceList.add(createWhiteKnight(new Point(WHITE_PIECE_ROW, WHITE_KNIGHT_LEFT_COL)));
+        pieceList.add(createWhiteKnight(new Point(WHITE_PIECE_ROW, WHITE_KNIGHT_RIGHT_COL)));
+        pieceList.add(createBlackKnight(new Point(BLACK_PIECE_ROW, BLACK_KNIGHT_LEFT_COL)));
+        pieceList.add(createBlackKnight(new Point(BLACK_PIECE_ROW, BLACK_KNIGHT_RIGHT_COL)));
     }
 
     private void initializeRook() {
-        pieceList.add(createWhiteRook(new Point(7, 0)));
-        pieceList.add(createWhiteRook(new Point(7, 7)));
-        pieceList.add(createBlackRook(new Point(0, 0)));
-        pieceList.add(createBlackRook(new Point(0, 7)));
+        pieceList.add(createWhiteRook(new Point(WHITE_PIECE_ROW, WHITE_ROOK_LEFT_COL)));
+        pieceList.add(createWhiteRook(new Point(WHITE_PIECE_ROW, WHITE_ROOK_RIGHT_COL)));
+        pieceList.add(createBlackRook(new Point(BLACK_PIECE_ROW, BLACK_ROOK_LEFT_COL)));
+        pieceList.add(createBlackRook(new Point(BLACK_PIECE_ROW, BLACK_ROOK_RIGHT_COL)));
     }
 
     private void initializePawn() {
         IntStream.range(0, ROW_COUNT)
                 .forEach(line -> {
-                    pieceList.add(createWhitePawn(new Point(6, line)));
-                    pieceList.add(createBlackPawn(new Point(1, line)));
+                    pieceList.add(createWhitePawn(new Point(WHITE_PAWN_ROW, line)));
+                    pieceList.add(createBlackPawn(new Point(BLACK_PAWN_ROW, line)));
                 });
 
     }
