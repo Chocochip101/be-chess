@@ -104,7 +104,7 @@ public class Board {
 
     private boolean isPieceAtPosition(int x, int y) {
         for (Piece piece : pieceList) {
-            if (piece.getPoint().getX() == x && piece.getPoint().getY() == y) {
+            if (piece.getPoint().isSamePoint(x, y)) {
                 return true;
             }
         }
@@ -113,7 +113,7 @@ public class Board {
 
     private Character getPieceSymbol(int x, int y) {
         for (Piece piece : pieceList) {
-            if (piece.getPoint().getX() == x && piece.getPoint().getY() == y) {
+            if (piece.getPoint().isSamePoint(x, y)) {
                 return piece.getRepresentation();
             }
         }
@@ -139,5 +139,4 @@ public class Board {
         buildPrintString(stringBuilder);
         return stringBuilder.toString();
     }
-
 }

@@ -13,7 +13,11 @@ public class Point {
         return x;
     }
 
-    public int getY(){
+    public int getY() {
         return y;
+    }
+
+    public boolean isSamePoint(int x, int y) {
+        return this.x == x && this.y == y;
     }
 }
