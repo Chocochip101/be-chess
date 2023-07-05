@@ -147,14 +147,14 @@ public class Board {
 
     public String getWhitePiecesResult() {
         return pieceList.stream()
-                .filter(piece -> piece.getColor().equals(Piece.WHITE_COLOR))
+                .filter(piece -> piece.getColor().equals(Color.WHITE))
                 .map(piece -> String.valueOf(piece.getRepresentation()))
                 .collect(Collectors.joining());
     }
 
     public String getBlackPiecesResult() {
         return pieceList.stream()
-                .filter(piece -> piece.getColor().equals(Piece.BLACK_COLOR))
+                .filter(piece -> piece.getColor().equals(Color.BLACK))
                 .map(piece -> String.valueOf(piece.getRepresentation()))
                 .collect(Collectors.joining());
     }
