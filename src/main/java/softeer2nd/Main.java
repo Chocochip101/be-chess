@@ -1,7 +1,10 @@
 package softeer2nd;
 
+import softeer2nd.chess.controller.ChessGameController;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        ChessGameController chessGameController = new ChessGameController();
+        chessGameController.main();
     }
 }
