@@ -82,6 +82,14 @@ public class Piece {
         return creatBlack(BLACK_KING_REPRESENTATION, point);
     }
 
+    public boolean isWhite() {
+        return checkColor(WHITE_COLOR);
+    }
+
+    public boolean isBlack() {
+        return checkColor(BLACK_COLOR);
+    }
+
     private boolean checkColor(String color) {
         return this.color.equals(color);
     }
