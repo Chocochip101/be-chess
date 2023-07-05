@@ -101,6 +101,10 @@ public class Piece {
         return creatBlack(Type.KING, point);
     }
 
+    public static Piece createBlank(Point point) {
+        return new Piece(Color.NOCOLOR, Type.NO_PIECE, point);
+    }
+
     public boolean isWhite() {
         return checkColor(Color.WHITE);
     }

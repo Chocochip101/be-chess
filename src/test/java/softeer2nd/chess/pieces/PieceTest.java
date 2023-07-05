@@ -22,6 +22,9 @@ public class PieceTest {
     @DisplayName("Piece의 색상을 비교한다.")
     @Test
     public void getRepresentationPerPiece() throws Exception {
+        //given&when
+
+        //then
         assertEquals('p', Type.PAWN.getWhiteRepresentation());
         assertEquals('P', Type.PAWN.getBlackRepresentation());
     }
@@ -92,8 +95,23 @@ public class PieceTest {
     }
 
     @Test
+    @DisplayName("비어있는 Piece의 생성을 검증한다.")
+    public void blankPieceTest() {
+        //given&when
+        Piece blank = Piece.createBlank(pointZero);
+
+        //then
+        assertFalse(blank.isWhite());
+        assertFalse(blank.isBlack());
+        assertEquals(Type.NO_PIECE, blank.getType());
+    }
+
+    @Test
     @DisplayName("isWhite()과 isBlack()을 검증한다.")
     public void checkIsWhite() {
+        //given&when
+
+        //then
         assertTrue(whitePawn.isWhite());
         assertFalse(whitePawn.isBlack());
     }
