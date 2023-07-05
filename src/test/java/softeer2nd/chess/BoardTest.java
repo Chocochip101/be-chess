@@ -3,21 +3,21 @@ package softeer2nd.chess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softeer2nd.chess.pieces.Pawn;
+import softeer2nd.chess.pieces.Piece;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class BoardTest {
     private Board board;
-    private Pawn white;
-    private Pawn black;
+    private Piece white;
+    private Piece black;
 
     @BeforeEach
     void setup() {
         board = new Board();
-        white = new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION, 6, 0);
-        black = new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION, 1, 1);
+        white = new Piece(Piece.WHITE_COLOR, Piece.WHITE_REPRESENTATION, 6, 0);
+        black = new Piece(Piece.BLACK_COLOR, Piece.BLACK_REPRESENTATION, 1, 1);
     }
 
     @Test
@@ -25,11 +25,11 @@ public class BoardTest {
     public void create() throws Exception {
         board.add(white);
         assertEquals(1, board.size());
-        assertEquals(white, board.findPawn(0));
+        assertEquals(white, board.findPiece(0));
 
         board.add(black);
         assertEquals(2, board.size());
-        assertEquals(black, board.findPawn(1));
+        assertEquals(black, board.findPiece(1));
     }
 
     @Test
@@ -43,13 +43,13 @@ public class BoardTest {
     @DisplayName("getPawnsResult의 결과값을 검증한다.")
     public void initialize() throws Exception {
         board.initialize();
-        assertEquals("pppppppp", board.getWhitePawnsResult());
-        assertEquals("PPPPPPPP", board.getBlackPawnsResult());
+        assertEquals("pppppppp", board.getWhitePiecesResult());
+        assertEquals("PPPPPPPP", board.getBlackPiecesResult());
     }
 
     @Test
     @DisplayName("initialize() 실행 시 폰이 16개 생성된다.")
-    public void initializePawnCount() {
+    public void initializePieceCount() {
         board.add(white);
         board.initialize();
         assertEquals(board.size(), 16);
