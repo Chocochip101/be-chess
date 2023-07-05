@@ -7,8 +7,7 @@ public class Piece {
     public final static char BLACK_REPRESENTATION = 'P';
     private final String color;
     private final char representation;
-    private int xCord;
-    private int yCord;
+    private Point point;
 
     public Piece() {
         this.color = WHITE_COLOR;
@@ -18,8 +17,7 @@ public class Piece {
     public Piece(final String color, final Character representation, int xCord, int yCord) {
         this.color = color;
         this.representation = representation;
-        this.xCord = xCord;
-        this.yCord = yCord;
+        this.point = new Point(xCord, yCord);
     }
 
     public String getColor() {
@@ -30,11 +28,8 @@ public class Piece {
         return this.representation;
     }
 
-    public int getX(){
-        return this.xCord;
+    public Point getPoint() {
+        return this.point;
     }
 
-    public int getY(){
-        return this.yCord;
-    }
 }

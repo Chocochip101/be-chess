@@ -60,7 +60,7 @@ public class Board {
 
     private boolean isPieceAtPosition(int x, int y) {
         for (Piece piece : pieceList) {
-            if (piece.getX() == x && piece.getY() == y) {
+            if (piece.getPoint().getX() == x && piece.getPoint().getY() == y) {
                 return true;
             }
         }
@@ -69,7 +69,7 @@ public class Board {
 
     private String getPieceSymbol(int x, int y) {
         for (Piece piece : pieceList) {
-            if (piece.getX() == x && piece.getY() == y) {
+            if (piece.getPoint().getX() == x && piece.getPoint().getY() == y) {
                 if (piece.getColor().equals(Piece.WHITE_COLOR)) {
                     return "p";
                 } else {
