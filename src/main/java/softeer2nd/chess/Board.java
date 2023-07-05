@@ -2,6 +2,7 @@ package softeer2nd.chess;
 
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
+import softeer2nd.chess.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,28 +61,13 @@ public class Board {
         initializeKing();
     }
 
-    private void initializeKing() {
-        pieceList.add(createWhiteKing(new Point(WHITE_PIECE_ROW, KING_COL)));
-        pieceList.add(createBlackKing(new Point(BLACK_PIECE_ROW, KING_COL)));
-    }
+    private void initializePawn() {
+        IntStream.range(0, ROW_COUNT)
+                .forEach(line -> {
+                    pieceList.add(createWhitePawn(new Point(WHITE_PAWN_ROW, line)));
+                    pieceList.add(createBlackPawn(new Point(BLACK_PAWN_ROW, line)));
+                });
 
-    private void initializeQueen() {
-        pieceList.add(createWhiteQueen(new Point(WHITE_PIECE_ROW, QUEEN_COL)));
-        pieceList.add(createBlackQueen(new Point(BLACK_PIECE_ROW, QUEEN_COL)));
-    }
-
-    private void initializeBishop() {
-        pieceList.add(createWhiteBishop(new Point(WHITE_PIECE_ROW, WHITE_BISHOP_LEFT_COL)));
-        pieceList.add(createWhiteBishop(new Point(WHITE_PIECE_ROW, WHITE_BISHOP_RIGHT_COL)));
-        pieceList.add(createBlackBishop(new Point(BLACK_PIECE_ROW, BLACK_BISHOP_LEFT_COL)));
-        pieceList.add(createBlackBishop(new Point(BLACK_PIECE_ROW, BLACK_BISHOP_RIGHT_COL)));
-    }
-
-    private void initializeKnight() {
-        pieceList.add(createWhiteKnight(new Point(WHITE_PIECE_ROW, WHITE_KNIGHT_LEFT_COL)));
-        pieceList.add(createWhiteKnight(new Point(WHITE_PIECE_ROW, WHITE_KNIGHT_RIGHT_COL)));
-        pieceList.add(createBlackKnight(new Point(BLACK_PIECE_ROW, BLACK_KNIGHT_LEFT_COL)));
-        pieceList.add(createBlackKnight(new Point(BLACK_PIECE_ROW, BLACK_KNIGHT_RIGHT_COL)));
     }
 
     private void initializeRook() {
@@ -91,13 +77,28 @@ public class Board {
         pieceList.add(createBlackRook(new Point(BLACK_PIECE_ROW, BLACK_ROOK_RIGHT_COL)));
     }
 
-    private void initializePawn() {
-        IntStream.range(0, ROW_COUNT)
-                .forEach(line -> {
-                    pieceList.add(createWhitePawn(new Point(WHITE_PAWN_ROW, line)));
-                    pieceList.add(createBlackPawn(new Point(BLACK_PAWN_ROW, line)));
-                });
+    private void initializeKnight() {
+        pieceList.add(createWhiteKnight(new Point(WHITE_PIECE_ROW, WHITE_KNIGHT_LEFT_COL)));
+        pieceList.add(createWhiteKnight(new Point(WHITE_PIECE_ROW, WHITE_KNIGHT_RIGHT_COL)));
+        pieceList.add(createBlackKnight(new Point(BLACK_PIECE_ROW, BLACK_KNIGHT_LEFT_COL)));
+        pieceList.add(createBlackKnight(new Point(BLACK_PIECE_ROW, BLACK_KNIGHT_RIGHT_COL)));
+    }
 
+    private void initializeBishop() {
+        pieceList.add(createWhiteBishop(new Point(WHITE_PIECE_ROW, WHITE_BISHOP_LEFT_COL)));
+        pieceList.add(createWhiteBishop(new Point(WHITE_PIECE_ROW, WHITE_BISHOP_RIGHT_COL)));
+        pieceList.add(createBlackBishop(new Point(BLACK_PIECE_ROW, BLACK_BISHOP_LEFT_COL)));
+        pieceList.add(createBlackBishop(new Point(BLACK_PIECE_ROW, BLACK_BISHOP_RIGHT_COL)));
+    }
+
+    private void initializeQueen() {
+        pieceList.add(createWhiteQueen(new Point(WHITE_PIECE_ROW, QUEEN_COL)));
+        pieceList.add(createBlackQueen(new Point(BLACK_PIECE_ROW, QUEEN_COL)));
+    }
+
+    private void initializeKing() {
+        pieceList.add(createWhiteKing(new Point(WHITE_PIECE_ROW, KING_COL)));
+        pieceList.add(createBlackKing(new Point(BLACK_PIECE_ROW, KING_COL)));
     }
 
     public void print() {
@@ -109,10 +110,9 @@ public class Board {
     private void buildPrintString(StringBuilder stringBuilder) {
         IntStream.range(0, COL_COUNT)
                 .forEach(col -> {
-                            buildRowString(stringBuilder, col);
-                            stringBuilder.append("\n");
-                        }
-                );
+                    buildRowString(stringBuilder, col);
+                    stringBuilder.append(StringUtils.appendNewLine(""));
+                });
     }
 
     private void buildRowString(StringBuilder stringBuilder, int rowIndex) {
