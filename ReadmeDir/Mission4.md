@@ -1,7 +1,7 @@
 ## Create
-- [ ] StringUtils 클래스 구현
-    - [ ] appendNewLine() 메소드 추가
-    - [ ] NEWLINE 상수 값 추가
+- [X] StringUtils 클래스 구현
+    - [X] appendNewLine() 메소드 추가
+    - [X] NEWLINE 상수 값 추가
 
 - [ ] Pawn 클래스 이름 변경
 - [ ] 전체 체스판 상태 출력 기능 구현
