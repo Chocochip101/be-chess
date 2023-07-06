@@ -3,9 +3,6 @@ package softeer2nd.chess.pieces;
 import java.util.List;
 import java.util.Objects;
 
-public class Piece {
-    public final static String WHITE_COLOR = "white";
-    public final static String BLACK_COLOR = "black";
     public final static char PAWN_REPRESENTATION = 'p';
     public final static char ROOK_REPRESENTATION = 'r';
     public final static char KNIGHT_REPRESENTATION = 'n';
@@ -19,12 +16,15 @@ public class Piece {
     }
 
     public enum Type {
-        PAWN(PAWN_REPRESENTATION), ROOK(ROOK_REPRESENTATION), KNIGHT(KNIGHT_REPRESENTATION), BISHOP(BISHOP_REPRESENTATION),
-        QUEEN(QUEEN_REPRESENTATION), KING(KING_REPRESENTATION), NO_PIECE(NO_REPRESENTATION);
+        PAWN(PAWN_REPRESENTATION, 1.0), ROOK(ROOK_REPRESENTATION, 5.0), KNIGHT(KNIGHT_REPRESENTATION, 2.5),
+        BISHOP(BISHOP_REPRESENTATION, 3.0), QUEEN(QUEEN_REPRESENTATION, 9.0), KING(KING_REPRESENTATION, 0.0),
+        NO_PIECE(NO_REPRESENTATION, 0.0);
         private final char representation;
+        private final double score;
 
-        Type(char representation) {
+        Type(char representation, double score) {
             this.representation = representation;
+            this.score = score;
         }
 
         public char getWhiteRepresentation() {
@@ -33,6 +33,10 @@ public class Piece {
 
         public char getBlackRepresentation() {
             return Character.toUpperCase(representation);
+        }
+
+        public double getScore() {
+            return this.score;
         }
     }
 
@@ -134,9 +138,28 @@ public class Piece {
         return checkColor(Color.WHITE) ? type.getWhiteRepresentation() : type.getBlackRepresentation();
     }
 
+    public void addPiecesByColor(Color color, List<Piece> pieceList) {
+        if (checkColor(color)) {
+            pieceList.add(this);
+        }
+    }
+
     public boolean checkColorType(Color color, Type type) {
         return (this.color == color) && (this.type == type);
     }
+
+    public double getScores(List<Piece> pieces) {
+        if (this.type != Type.PAWN) {
+            return type.getScore();
+        }
+        for (Point point : this.getPoint().SameCol()) {
+            if (pieces.contains(new Piece(this.color, this.type, point))) {
+                return type.getScore() - 0.5;
+            }
+        }
+        return type.score;
+    }
+
 
     @Override
     public boolean equals(Object o) {

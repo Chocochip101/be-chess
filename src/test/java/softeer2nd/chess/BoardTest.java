@@ -98,4 +98,34 @@ public class BoardTest {
         System.out.println(board.showBoard());
     }
 
+    @Test
+    @DisplayName("체스 프로그램의 점수 계산을 검증한다.")
+    public void caculatePointTest() throws Exception {
+        //given
+        board.initializeEmpty();
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(1, 2);
+        Point p3 = new Point(1, 1);
+
+        //when
+        addPiece("b6", Piece.createBlackPawn(p1));
+        addPiece("e6", Piece.createBlackQueen(p2));
+        addPiece("b8", Piece.createBlackKing(p3));
+        addPiece("c8", Piece.createBlackRook(p1));
+
+        addPiece("f2", Piece.createWhitePawn(p1));
+        addPiece("g2", Piece.createWhitePawn(p1));
+        addPiece("e1", Piece.createWhiteRook(p1));
+        addPiece("f1", Piece.createWhiteKing(p1));
+
+        //then
+        assertEquals(15.0, board.caculatePoint(Piece.Color.BLACK), 0.01);
+        assertEquals(7.0, board.caculatePoint(Piece.Color.WHITE), 0.01);
+
+        System.out.println(board.showBoard());
+    }
+
+    private void addPiece(String position, Piece piece) {
+        board.move(position, piece);
+    }
 }

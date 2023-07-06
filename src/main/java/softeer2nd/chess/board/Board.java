@@ -77,4 +77,21 @@ public class Board {
         board.get(destP.getY()).move(destP.getX(), piece);
         board.get(srcP.getY()).move(srcP.getX(), Piece.createBlank(srcP));
     }
+
+    public double caculatePoint(Color color) {
+        List<Piece> pieces = findPieceByColor(color);
+        double point = 0.0;
+        for (Piece piece : pieces) {
+            point += piece.getScores(pieces);
+        }
+        return point;
+    }
+
+    private List<Piece> findPieceByColor(Color color) {
+        List<Piece> pieces = new ArrayList<>();
+        for (Rank rank : board) {
+            pieces.addAll(rank.findPieceByColor(color));
+        }
+        return pieces;
+    }
 }

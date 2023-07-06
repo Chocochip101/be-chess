@@ -1,5 +1,7 @@
 package softeer2nd.chess.pieces;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Point {
@@ -24,6 +26,17 @@ public class Point {
     public int getY() {
         return y - 1;
     }
+
+    public List<Point> SameCol() {
+        List<Point> positions = new ArrayList<>();
+        for (int idx = 0; idx <= 8; idx++) {
+            if (idx != getY()) {
+                positions.add(new Point(getX(), idx));
+            }
+        }
+        return positions;
+    }
+
 
     @Override
     public boolean equals(Object o) {

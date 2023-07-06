@@ -26,7 +26,6 @@ class RankTest {
         //when
         rank.move(0, piece);
 
-
         //then
         assertEquals(rank.findPiece(0), piece);
     }

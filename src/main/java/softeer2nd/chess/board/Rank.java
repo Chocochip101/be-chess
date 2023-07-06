@@ -41,4 +41,12 @@ public class Rank {
     private boolean checkColorType(Piece piece, Color color, Type type) {
         return piece.checkColorType(color, type);
     }
+
+    public List<Piece> findPieceByColor(Color color) {
+        List<Piece> pieceList = new ArrayList<>();
+        for (Piece piece : pieces) {
+            piece.addPiecesByColor(color, pieceList);
+        }
+        return pieceList;
+    }
 }
