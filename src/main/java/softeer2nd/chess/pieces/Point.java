@@ -3,8 +3,10 @@ package softeer2nd.chess.pieces;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class Point {
+    public final static int ROW_COUNT = 8;
     private final int x;
     private final int y;
 
@@ -29,11 +31,13 @@ public class Point {
 
     public List<Point> SameCol() {
         List<Point> positions = new ArrayList<>();
-        for (int idx = 0; idx <= 8; idx++) {
-            if (idx != getY()) {
-                positions.add(new Point(getX(), idx));
-            }
-        }
+        IntStream.rangeClosed(0, ROW_COUNT)
+                .forEach(idx -> {
+                    if (idx != getY()) {
+                        positions.add(new Point(getX(), idx));
+                    }
+                });
+
         return positions;
     }
 

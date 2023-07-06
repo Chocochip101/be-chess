@@ -11,15 +11,24 @@ public class Piece implements Comparable<Piece> {
     public final static char QUEEN_REPRESENTATION = 'q';
     public final static char KING_REPRESENTATION = 'k';
     public final static char NO_REPRESENTATION = '.';
+    public final static double PAWN_SCORE = 1.0;
+    public final static double ROOK_SCORE = 5.0;
+    public final static double KNIGHT_SCORE = 2.5;
+    public final static double BISHOP_SCORE = 3.0;
+    public final static double QUEEN_SCORE = 9.0;
+    public final static double KING_SCORE = 0.0;
+    public final static double NO_PIECE_SCORE = 0.0;
+    public final static double SUBTRACT_SCORE_SAME_LINE = 0.5;
+
 
     public enum Color {
         WHITE, BLACK, NOCOLOR;
     }
 
     public enum Type {
-        PAWN(PAWN_REPRESENTATION, 1.0), ROOK(ROOK_REPRESENTATION, 5.0), KNIGHT(KNIGHT_REPRESENTATION, 2.5),
-        BISHOP(BISHOP_REPRESENTATION, 3.0), QUEEN(QUEEN_REPRESENTATION, 9.0), KING(KING_REPRESENTATION, 0.0),
-        NO_PIECE(NO_REPRESENTATION, 0.0);
+        PAWN(PAWN_REPRESENTATION, PAWN_SCORE), ROOK(ROOK_REPRESENTATION, ROOK_SCORE), KNIGHT(KNIGHT_REPRESENTATION, KNIGHT_SCORE),
+        BISHOP(BISHOP_REPRESENTATION, BISHOP_SCORE), QUEEN(QUEEN_REPRESENTATION, QUEEN_SCORE), KING(KING_REPRESENTATION, KING_SCORE),
+        NO_PIECE(NO_REPRESENTATION, NO_PIECE_SCORE);
         private final char representation;
         private final double score;
 
@@ -155,7 +164,7 @@ public class Piece implements Comparable<Piece> {
         }
         for (Point point : this.getPoint().SameCol()) {
             if (pieces.contains(new Piece(this.color, this.type, point))) {
-                return type.getScore() - 0.5;
+                return type.getScore() - SUBTRACT_SCORE_SAME_LINE;
             }
         }
         return type.score;
