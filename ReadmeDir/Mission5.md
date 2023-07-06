@@ -1,9 +1,9 @@
 ## Create
 - [X] Color Enum Type 적용
 - [X] Type Enum Type 적용
-- [ ] Piece 초기화
-- [ ] 기물 색별 개수 반환
-- [ ] 위치 기물 조회
+- [X] Piece 초기화
+- [X] 기물 색별 개수 반환
+- [X] 위치 기물 조회
 - [ ] 임의의 기물 추가
 
 ## Test

@@ -1,6 +1,6 @@
 package softeer2nd.chess.controller;
 
-import softeer2nd.chess.Board;
+import softeer2nd.chess.board.Board;
 import softeer2nd.chess.view.InputView;
 import softeer2nd.chess.view.OutputView;
 
@@ -32,7 +32,7 @@ public class ChessGameController {
         } else if (input.equals(START_COMMAND)) {
             Board board = new Board();
             board.initialize();
-            board.print();
+            board.showBoard();
         } else {
             outputView.printWrongCommand();
         }

@@ -1,5 +1,6 @@
 package softeer2nd.chess.pieces;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Piece {
@@ -131,5 +132,22 @@ public class Piece {
 
     public char getRepresentation() {
         return checkColor(Color.WHITE) ? type.getWhiteRepresentation() : type.getBlackRepresentation();
+    }
+
+    public boolean checkColorType(Color color, Type type) {
+        return (this.color == color) && (this.type == type);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Piece piece = (Piece) o;
+        return color == piece.color && type == piece.type && Objects.equals(point, piece.point);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, type, point);
     }
 }
