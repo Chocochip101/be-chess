@@ -3,6 +3,7 @@ package softeer2nd.chess.pieces;
 import java.util.List;
 import java.util.Objects;
 
+public class Piece implements Comparable<Piece> {
     public final static char PAWN_REPRESENTATION = 'p';
     public final static char ROOK_REPRESENTATION = 'r';
     public final static char KNIGHT_REPRESENTATION = 'n';
@@ -172,5 +173,10 @@ import java.util.Objects;
     @Override
     public int hashCode() {
         return Objects.hash(color, type, point);
+    }
+
+    @Override
+    public int compareTo(Piece piece) {
+        return (int) (piece.type.getScore() * 2 - type.getScore() * 2);
     }
 }

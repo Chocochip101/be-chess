@@ -7,6 +7,8 @@ import softeer2nd.chess.board.Board;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static softeer2nd.chess.utils.StringUtils.appendNewLine;
 
@@ -100,7 +102,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("체스 프로그램의 점수 계산을 검증한다.")
-    public void caculatePointTest() throws Exception {
+    public void calculatePointTest() throws Exception {
         //given
         board.initializeEmpty();
         Point p1 = new Point(0, 0);
@@ -123,6 +125,27 @@ public class BoardTest {
         assertEquals(7.0, board.caculatePoint(Piece.Color.WHITE), 0.01);
 
         System.out.println(board.showBoard());
+    }
+
+    @Test
+    @DisplayName("정렬 기능을 검증한다.")
+    public void testSortScore() {
+        //given
+        board.initializeEmpty();
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(1, 2);
+        Point p3 = new Point(1, 1);
+
+        //when
+        addPiece("b6", Piece.createBlackPawn(p1));
+        addPiece("e6", Piece.createBlackQueen(p2));
+        addPiece("b8", Piece.createBlackKing(p3));
+        addPiece("c8", Piece.createBlackRook(p1));
+
+        List<Piece> sortedPieces = board.sortPieceByScore(Piece.Color.BLACK);
+
+        // then
+        assertEquals(sortedPieces.get(0).getType(), Piece.Type.QUEEN);
     }
 
     private void addPiece(String position, Piece piece) {
