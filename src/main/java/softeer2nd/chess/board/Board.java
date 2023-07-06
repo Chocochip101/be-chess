@@ -13,8 +13,6 @@ import static softeer2nd.chess.pieces.Piece.*;
 import static softeer2nd.chess.utils.StringUtils.appendNewLine;
 
 public class Board {
-    private final static int ROW_COUNT = 8;
-    private final static int COL_COUNT = 8;
     private final static int WHITE_PIECE_ROW = 0;
     private final static int WHITE_PAWN_ROW = 1;
     private final static List<Integer> BLANK_ROW = List.of(2, 3, 4, 5);
