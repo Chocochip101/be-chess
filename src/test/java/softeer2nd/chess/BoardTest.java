@@ -90,7 +90,7 @@ public class BoardTest {
         Piece piece = Piece.createBlackRook(new Point(start));
 
         //when
-        board.move(start, target);
+        board.move(target, piece);
 
         //then
         assertEquals(piece.getColor(), board.findPiece(target).getColor());

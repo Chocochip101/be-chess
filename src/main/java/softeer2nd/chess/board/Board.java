@@ -70,12 +70,11 @@ public class Board {
         return result;
     }
 
-    public void move(String src, String dest) {
-        Point srcP = new Point(src);
+    public void move(String dest, Piece piece) {
+        Point srcP = piece.getPoint();
         Point destP = new Point(dest);
-        Piece foundPiece = findPiece(src);
 
-        board.get(destP.getY()).move(destP.getX(), foundPiece);
+        board.get(destP.getY()).move(destP.getX(), piece);
         board.get(srcP.getY()).move(srcP.getX(), Piece.createBlank(srcP));
     }
 }
