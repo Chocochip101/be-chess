@@ -32,7 +32,7 @@ public class ChessGameController {
         } else if (input.equals(START_COMMAND)) {
             Board board = new Board();
             board.initialize();
-            board.showBoard();
+            System.out.println(board.showBoard());
         } else {
             outputView.printWrongCommand();
         }

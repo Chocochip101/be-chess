@@ -26,19 +26,19 @@ public class Rank {
         return pieces.get(xPos);
     }
 
+    public void move(int pos, Piece piece) {
+        this.pieces.set(pos, piece);
+    }
 
     public int countPieceByColorAndType(Color color, Type type) {
         int countOfPiece = 0;
         for (Piece piece : pieces) {
-            countOfPiece += checkColorType(piece, color, type);
+            countOfPiece += checkColorType(piece, color, type) ? 1 : 0;
         }
         return countOfPiece;
     }
 
-    private int checkColorType(Piece piece, Color color, Type type) {
-        if (piece.checkColorType(color, type)) {
-            return 1;
-        }
-        return 0;
+    private boolean checkColorType(Piece piece, Color color, Type type) {
+        return piece.checkColorType(color, type);
     }
 }

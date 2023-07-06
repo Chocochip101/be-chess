@@ -20,13 +20,13 @@ public class Board {
     private final static int BLACK_PAWN_ROW = 6;
     private final static int BLACK_PIECE_ROW = 7;
 
-    private List<Rank> board;
+    private final List<Rank> board = new ArrayList<>();
 
     public Board() {
     }
 
     public void initialize() {
-        board = new ArrayList<>();
+        board.clear();
         board.add(Rank.initializePieces(WHITE_PIECE_ROW, new WhitePiecesFactory()));
         board.add(Rank.initializePieces(WHITE_PAWN_ROW, new WhitePawnPiecesFactory()));
         for (int ROW : BLANK_ROW) {
@@ -34,6 +34,11 @@ public class Board {
         }
         board.add(Rank.initializePieces(BLACK_PAWN_ROW, new BlackPawnPiecesFactory()));
         board.add(Rank.initializePieces(BLACK_PIECE_ROW, new BlackPiecesFactory()));
+    }
+
+    public void initializeEmpty() {
+        board.clear();
+        IntStream.range(0, 8).forEach(col -> board.add(Rank.initializePieces(col, new BlankPiecesFactory())));
     }
 
     private String getPieceResult(Rank rank) {
@@ -46,10 +51,9 @@ public class Board {
 
     public String showBoard() {
         StringBuilder stringBuilder = new StringBuilder();
-        IntStream.rangeClosed(board.size() - 1, 0)
-                .forEach(idx -> {
-                    stringBuilder.append(appendNewLine(getPieceResult(board.get(idx))));
-                });
+        for (int idx = board.size() - 1; idx >= 0; --idx) {
+            stringBuilder.append(appendNewLine(getPieceResult(board.get(idx))));
+        }
         return stringBuilder.toString();
     }
 
@@ -64,5 +68,14 @@ public class Board {
             result += rank.countPieceByColorAndType(color, type);
         }
         return result;
+    }
+
+    public void move(String src, String dest) {
+        Point srcP = new Point(src);
+        Point destP = new Point(dest);
+        Piece foundPiece = findPiece(src);
+
+        board.get(destP.getY()).move(destP.getX(), foundPiece);
+        board.get(srcP.getY()).move(srcP.getX(), Piece.createBlank(srcP));
     }
 }

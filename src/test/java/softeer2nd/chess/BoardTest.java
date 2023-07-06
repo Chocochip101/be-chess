@@ -80,4 +80,22 @@ public class BoardTest {
         assertEquals(2, board.countPieceByColorAndType(Piece.Color.BLACK, Piece.Type.ROOK));
     }
 
+    @Test
+    @DisplayName("임의의 기물을 체스판 위에 추가한다.")
+    public void move() throws Exception {
+        //given
+        board.initialize();
+        String start = "a8";
+        String target = "a4";
+        Piece piece = Piece.createBlackRook(new Point(start));
+
+        //when
+        board.move(start, target);
+
+        //then
+        assertEquals(piece.getColor(), board.findPiece(target).getColor());
+        assertEquals(piece.getType(), board.findPiece(target).getType());
+        System.out.println(board.showBoard());
+    }
+
 }
