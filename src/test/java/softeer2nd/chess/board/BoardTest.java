@@ -1,4 +1,4 @@
-package softeer2nd.chess;
+package softeer2nd.chess.board;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -121,8 +121,8 @@ public class BoardTest {
         addPiece("f1", Piece.createWhiteKing(p1));
 
         //then
-        assertEquals(15.0, board.caculatePoint(Piece.Color.BLACK), 0.01);
-        assertEquals(7.0, board.caculatePoint(Piece.Color.WHITE), 0.01);
+        assertEquals(15.0, board.calculatePoint(Piece.Color.BLACK), 0.01);
+        assertEquals(7.0, board.calculatePoint(Piece.Color.WHITE), 0.01);
 
         System.out.println(board.showBoard());
     }
