@@ -69,12 +69,14 @@ public class Board {
         return result;
     }
 
-    public void move(String dest, Piece piece) {
-        Point srcP = piece.getPoint();
-        Point destP = new Point(dest);
+    public void move(String source, String target) {
+        Point sourcePoint = new Point(source);
+        Point targetPoint = new Point(target);
+        Piece piece = findPiece(source);
 
-        board.get(destP.getY()).move(destP.getX(), piece);
-        board.get(srcP.getY()).move(srcP.getX(), Piece.createBlank(srcP));
+        board.get(targetPoint.getY()).move(targetPoint.getX(), piece);
+        piece.setPoint(targetPoint);
+        board.get(sourcePoint.getY()).move(sourcePoint.getX(), Piece.createBlank(sourcePoint));
     }
 
     public double calculatePoint(Color color) {

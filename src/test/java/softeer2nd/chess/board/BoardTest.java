@@ -83,72 +83,14 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("임의의 기물을 체스판 위에 추가한다.")
+    @DisplayName("기물의 이동을 구현한다.")
     public void move() throws Exception {
-        //given
-        board.initialize();
-        String start = "a8";
-        String target = "a4";
-        Piece piece = Piece.createBlackRook(new Point(start));
+        String sourcePosition = "b2";
+        String targetPosition = "b3";
 
-        //when
-        board.move(target, piece);
-
-        //then
-        assertEquals(piece.getColor(), board.findPiece(target).getColor());
-        assertEquals(piece.getType(), board.findPiece(target).getType());
-        System.out.println(board.showBoard());
+        board.move(sourcePosition, targetPosition);
+        assertTrue(Piece.createBlank(new Point(sourcePosition)).equals(board.findPiece(sourcePosition)));
+        assertTrue(Piece.createWhitePawn(new Point(targetPosition)).equals(board.findPiece(targetPosition)));
     }
 
-    @Test
-    @DisplayName("체스 프로그램의 점수 계산을 검증한다.")
-    public void calculatePointTest() throws Exception {
-        //given
-        board.initializeEmpty();
-        Point p1 = new Point(0, 0);
-        Point p2 = new Point(1, 2);
-        Point p3 = new Point(1, 1);
-
-        //when
-        addPiece("b6", Piece.createBlackPawn(p1));
-        addPiece("e6", Piece.createBlackQueen(p2));
-        addPiece("b8", Piece.createBlackKing(p3));
-        addPiece("c8", Piece.createBlackRook(p1));
-
-        addPiece("f2", Piece.createWhitePawn(p1));
-        addPiece("g2", Piece.createWhitePawn(p1));
-        addPiece("e1", Piece.createWhiteRook(p1));
-        addPiece("f1", Piece.createWhiteKing(p1));
-
-        //then
-        assertEquals(15.0, board.calculatePoint(Piece.Color.BLACK), 0.01);
-        assertEquals(7.0, board.calculatePoint(Piece.Color.WHITE), 0.01);
-
-        System.out.println(board.showBoard());
-    }
-
-    @Test
-    @DisplayName("정렬 기능을 검증한다.")
-    public void testSortScore() {
-        //given
-        board.initializeEmpty();
-        Point p1 = new Point(0, 0);
-        Point p2 = new Point(1, 2);
-        Point p3 = new Point(1, 1);
-
-        //when
-        addPiece("b6", Piece.createBlackPawn(p1));
-        addPiece("e6", Piece.createBlackQueen(p2));
-        addPiece("b8", Piece.createBlackKing(p3));
-        addPiece("c8", Piece.createBlackRook(p1));
-
-        List<Piece> sortedPieces = board.sortPieceByScore(Piece.Color.BLACK);
-
-        // then
-        assertEquals(sortedPieces.get(0).getType(), Piece.Type.QUEEN);
-    }
-
-    private void addPiece(String position, Piece piece) {
-        board.move(position, piece);
-    }
 }

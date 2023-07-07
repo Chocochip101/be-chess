@@ -52,7 +52,7 @@ public class Piece implements Comparable<Piece> {
 
     private final Color color;
     private final Type type;
-    private final Point point;
+    private Point point;
 
     private Piece(Color color, Type type, Point point) {
         this.color = color;
@@ -142,6 +142,10 @@ public class Piece implements Comparable<Piece> {
 
     public Type getType() {
         return type;
+    }
+
+    public void setPoint(Point point){
+        this.point = point;
     }
 
     public char getRepresentation() {
