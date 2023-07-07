@@ -77,7 +77,7 @@ public class Board {
         board.get(srcP.getY()).move(srcP.getX(), Piece.createBlank(srcP));
     }
 
-    public double caculatePoint(Color color) {
+    public double calculatePoint(Color color) {
         List<Piece> pieces = findPieceByColor(color);
         double point = 0.0;
         for (Piece piece : pieces) {
