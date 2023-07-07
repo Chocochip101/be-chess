@@ -1,6 +1,7 @@
 package softeer2nd.chess.controller;
 
 import softeer2nd.chess.board.Board;
+import softeer2nd.chess.game.ChessGame;
 import softeer2nd.chess.view.InputView;
 import softeer2nd.chess.view.OutputView;
 
@@ -25,12 +26,13 @@ public class ChessGameController {
             }
             Board board = new Board();
             board.initialize();
+            ChessGame chessGame = new ChessGame(board.getRankList());
             String moveCommand = inputView.moveCommand();
             if (isNotExistCommand(command)) {
                 outputView.printWrongCommand();
                 throw new IllegalArgumentException("잘못된 커맨드 입력입니다.");
             }
-            move(board, moveCommand);
+            move(chessGame, moveCommand);
             outputView.print(board.showBoard());
         }
     }
@@ -39,9 +41,9 @@ public class ChessGameController {
         return !command.equals(START_COMMAND) && !command.equals(END_COMMAND) && !command.startsWith(MOVE_COMMAND);
     }
 
-    private void move(Board board, String command) {
+    private void move(ChessGame chessGame, String command) {
         String[] parsedResult = parseCommand(command);
-        board.move(parsedResult[1], parsedResult[2]);
+        chessGame.move(parsedResult[1], parsedResult[2]);
     }
 
     private String[] parseCommand(String command) {

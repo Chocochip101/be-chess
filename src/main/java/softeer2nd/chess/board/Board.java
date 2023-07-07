@@ -1,5 +1,6 @@
 package softeer2nd.chess.board;
 
+import softeer2nd.chess.game.ChessGame;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
 import softeer2nd.chess.pieces.factory.*;
@@ -22,6 +23,10 @@ public class Board {
     private final List<Rank> board = new ArrayList<>();
 
     public Board() {
+    }
+
+    public List<Rank> getRankList() {
+        return this.board;
     }
 
     public void initialize() {
@@ -67,16 +72,6 @@ public class Board {
             result += rank.countPieceByColorAndType(color, type);
         }
         return result;
-    }
-
-    public void move(String source, String target) {
-        Point sourcePoint = new Point(source);
-        Point targetPoint = new Point(target);
-        Piece piece = findPiece(source);
-
-        board.get(targetPoint.getY()).move(targetPoint.getX(), piece);
-        piece.setPoint(targetPoint);
-        board.get(sourcePoint.getY()).move(sourcePoint.getX(), Piece.createBlank(sourcePoint));
     }
 
     public double calculatePoint(Color color) {

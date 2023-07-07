@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.board.Board;
+import softeer2nd.chess.game.ChessGame;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
 
@@ -88,7 +89,8 @@ public class BoardTest {
         String sourcePosition = "b2";
         String targetPosition = "b3";
 
-        board.move(sourcePosition, targetPosition);
+        ChessGame chessGame = new ChessGame(board.getRankList());
+        chessGame.move(sourcePosition, targetPosition);
         assertTrue(Piece.createBlank(new Point(sourcePosition)).equals(board.findPiece(sourcePosition)));
         assertTrue(Piece.createWhitePawn(new Point(targetPosition)).equals(board.findPiece(targetPosition)));
     }
