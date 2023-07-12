@@ -80,4 +80,18 @@ class ChessGameTest {
             chessGame.move(sourcePosition, targetPosition);
         });
     }
+
+    @Test
+    @DisplayName("킹은 두 칸 이상 움직일 수 없다.")
+    public void kingMovingTwo() throws Exception {
+        //given
+        String sourcePosition = "e1";
+        String targetPosition = "e3";
+        ChessGame chessGame = new ChessGame(board);
+
+        //when&then
+        assertThrows(IllegalMovePositionException.class, () -> {
+            chessGame.move(sourcePosition, targetPosition);
+        });
+    }
 }
