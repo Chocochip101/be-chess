@@ -182,12 +182,15 @@ public class Piece implements Comparable<Piece> {
 
     public boolean canMove(Board board, String target) {
         if (getRepresentation() == 'k') {
-            return canMoveKing(board, target);
+            return moveKing(board, target);
+        }
+        if (getRepresentation() == 'q') {
+            return moveQueen(target);
         }
         return true;
     }
 
-    private boolean canMoveKing(Board board, String target) {
+    private boolean moveKing(Board board, String target) {
         Point targetPoint = new Point(target);
         int targetX = targetPoint.getX();
         int targetY = targetPoint.getY();
@@ -203,6 +206,25 @@ public class Piece implements Comparable<Piece> {
             throw new IllegalMovePositionException();
         }
         if (board.findPiece(target).getColor().equals(this.color)) {
+            throw new IllegalMovePositionException();
+        }
+        return true;
+    }
+
+    private boolean moveQueen(String target) {
+        Point targetPoint = new Point(target);
+        int targetX = targetPoint.getX();
+        int targetY = targetPoint.getY();
+        int thisX = point.getX();
+        int thisY = point.getY();
+
+        if (targetX > BOARD_MAX || targetX < BOARD_MIN || targetY > BOARD_MAX || targetY < BOARD_MIN) {
+            throw new OutOfBoardException();
+        }
+        if (targetPoint.equals(point)) {
+            throw new IllegalMovePositionException();
+        }
+        if (targetX != thisX && targetY != thisY) {
             throw new IllegalMovePositionException();
         }
         return true;

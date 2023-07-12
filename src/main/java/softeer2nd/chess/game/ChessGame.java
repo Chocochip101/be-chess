@@ -1,11 +1,9 @@
 package softeer2nd.chess.game;
 
 import softeer2nd.chess.board.Board;
-import softeer2nd.chess.board.Rank;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
 
-import java.util.List;
 
 public class ChessGame {
     private Board board;

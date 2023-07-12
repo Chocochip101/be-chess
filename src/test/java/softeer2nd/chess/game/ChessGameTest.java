@@ -94,4 +94,49 @@ class ChessGameTest {
             chessGame.move(sourcePosition, targetPosition);
         });
     }
+
+    @Test
+    @DisplayName("퀸의 이동을 구현한다.")
+    public void moveQueen() throws Exception {
+        //given
+        String sourcePosition = "d1";
+        String targetPosition = "d4";
+
+        //when
+        ChessGame chessGame = new ChessGame(board);
+        chessGame.move(sourcePosition, targetPosition);
+
+        // then
+        assertTrue(board.findPiece(targetPosition).getType().equals(Piece.Type.QUEEN));
+        assertTrue(board.findPiece(targetPosition).getColor().equals(Piece.Color.WHITE));
+    }
+
+    @Test
+    @DisplayName("퀸은 체스판 밖으로 이동할 수 없다.")
+    public void QueenOutofBoard() throws Exception {
+        //given
+        String sourcePosition = "d1";
+        String targetPosition = "d0";
+        ChessGame chessGame = new ChessGame(board);
+
+        //when&then
+        assertThrows(OutOfBoardException.class, () -> {
+            chessGame.move(sourcePosition, targetPosition);
+        });
+    }
+
+    @Test
+    @DisplayName("킹은 이동하려는 위치에 같은 편의 기물이 있을 경우, 움직일 수 없다.")
+    public void QueenMovingToSameColor() throws Exception {
+        //given
+        String sourcePosition = "d1";
+        String targetPosition = "d2";
+        ChessGame chessGame = new ChessGame(board);
+
+        //when&then
+        assertThrows(IllegalMovePositionException.class, () -> {
+            chessGame.move(sourcePosition, targetPosition);
+        });
+    }
+
 }
