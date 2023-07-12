@@ -1,5 +1,9 @@
 package softeer2nd.chess.pieces;
 
+import softeer2nd.chess.board.Board;
+import softeer2nd.chess.exception.IllegalMovePositionException;
+import softeer2nd.chess.exception.OutOfBoardException;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -19,7 +23,9 @@ public class Piece implements Comparable<Piece> {
     public final static double KING_SCORE = 0.0;
     public final static double NO_PIECE_SCORE = 0.0;
     public final static double SUBTRACT_SCORE_SAME_LINE = 0.5;
-
+    public final static int BOARD_MAX = 7;
+    public final static int BOARD_MIN = 1;
+    public final static int KING_DISTANCE = 1;
 
     public enum Color {
         WHITE, BLACK, NOCOLOR;
@@ -144,7 +150,7 @@ public class Piece implements Comparable<Piece> {
         return type;
     }
 
-    public void setPoint(Point point){
+    public void setPoint(Point point) {
         this.point = point;
     }
 
@@ -174,6 +180,33 @@ public class Piece implements Comparable<Piece> {
         return type.score;
     }
 
+    public boolean canMove(Board board, String target) {
+        if (getRepresentation() == 'k') {
+            return canMoveKing(board, target);
+        }
+        return true;
+    }
+
+    private boolean canMoveKing(Board board, String target) {
+        Point targetPoint = new Point(target);
+        int targetX = targetPoint.getX();
+        int targetY = targetPoint.getY();
+        int sourceX = point.getX();
+        int sourceY = point.getY();
+        if (targetPoint.equals(point)) {
+            throw new IllegalMovePositionException();
+        }
+        if (targetX > BOARD_MAX || targetX < BOARD_MIN || targetY > BOARD_MAX || targetY < BOARD_MIN) {
+            throw new OutOfBoardException();
+        }
+        if (Math.abs((sourceY - targetY)) > KING_DISTANCE || Math.abs((sourceX - targetX)) > KING_DISTANCE) {
+            throw new IllegalMovePositionException();
+        }
+        if (board.findPiece(target).getColor().equals(this.color)) {
+            throw new IllegalMovePositionException();
+        }
+        return true;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -8,9 +8,9 @@ import softeer2nd.chess.pieces.Point;
 import java.util.List;
 
 public class ChessGame {
-    private List<Rank> board;
+    private Board board;
 
-    public ChessGame(List<Rank> board) {
+    public ChessGame(Board board) {
         this.board = board;
     }
 
@@ -19,14 +19,16 @@ public class ChessGame {
         Point targetPoint = new Point(target);
         Piece piece = findPiece(source);
 
-        board.get(targetPoint.getY()).move(targetPoint.getX(), piece);
-        piece.setPoint(targetPoint);
-        board.get(sourcePoint.getY()).move(sourcePoint.getX(), Piece.createBlank(sourcePoint));
+        if (piece.canMove(board, target)) {
+            board.getRankList().get(targetPoint.getY()).move(targetPoint.getX(), piece);
+            piece.setPoint(targetPoint);
+            board.getRankList().get(sourcePoint.getY()).move(sourcePoint.getX(), Piece.createBlank(sourcePoint));
+        }
     }
 
     public Piece findPiece(String strPoint) {
         Point p = new Point(strPoint);
-        return board.get(p.getY()).findPiece(p.getX());
+        return board.getRankList().get(p.getY()).findPiece(p.getX());
     }
 
 }

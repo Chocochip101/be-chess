@@ -15,6 +15,8 @@ public class ChessGameController {
 
     public void main() {
         outputView.printStartProgram();
+        Board board = new Board();
+        board.initialize();
         while (true) {
             String command = inputView.gameCommand();
             if (isNotExistCommand(command)) {
@@ -24,14 +26,9 @@ public class ChessGameController {
             if (command.equals(END_COMMAND)) {
                 break;
             }
-            Board board = new Board();
-            board.initialize();
-            ChessGame chessGame = new ChessGame(board.getRankList());
+
+            ChessGame chessGame = new ChessGame(board);
             String moveCommand = inputView.moveCommand();
-            if (isNotExistCommand(command)) {
-                outputView.printWrongCommand();
-                throw new IllegalArgumentException("잘못된 커맨드 입력입니다.");
-            }
             move(chessGame, moveCommand);
             outputView.print(board.showBoard());
         }

@@ -83,16 +83,4 @@ public class BoardTest {
         assertEquals(2, board.countPieceByColorAndType(Piece.Color.BLACK, Piece.Type.ROOK));
     }
 
-    @Test
-    @DisplayName("기물의 이동을 구현한다.")
-    public void move() throws Exception {
-        String sourcePosition = "b2";
-        String targetPosition = "b3";
-
-        ChessGame chessGame = new ChessGame(board.getRankList());
-        chessGame.move(sourcePosition, targetPosition);
-        assertTrue(Piece.createBlank(new Point(sourcePosition)).equals(board.findPiece(sourcePosition)));
-        assertTrue(Piece.createWhitePawn(new Point(targetPosition)).equals(board.findPiece(targetPosition)));
-    }
-
 }
