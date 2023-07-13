@@ -38,14 +38,26 @@ public class ChessGame {
     }
 
     private void verifyMovementPosition(Point sourcePoint, Point targetPoint) {
-        if (targetPoint.equals(sourcePoint)) {
-            throw new OutOfBoardException();
+        checkSourceAndTargetIsSame(sourcePoint, targetPoint);
+        verifyTargetBound(targetPoint);
+        checkSourceAndTargetColor(sourcePoint, targetPoint);
+    }
+
+    private void checkSourceAndTargetColor(Point sourcePoint, Point targetPoint) {
+        if (board.findPiece(sourcePoint).getColor().equals(board.findPiece(targetPoint).getColor())) {
+            throw new IllegalMovePositionException();
         }
+    }
+
+    private static void verifyTargetBound(Point targetPoint) {
         if (targetPoint.getY() < 0 || targetPoint.getY() > BOARD_SIZE || targetPoint.getX() < 0 || targetPoint.getX() > BOARD_SIZE) {
             throw new OutOfBoardException();
         }
-        if (board.findPiece(sourcePoint).getColor().equals(board.findPiece(targetPoint).getColor())) {
-            throw new IllegalMovePositionException();
+    }
+
+    private static void checkSourceAndTargetIsSame(Point sourcePoint, Point targetPoint) {
+        if (targetPoint.equals(sourcePoint)) {
+            throw new OutOfBoardException();
         }
     }
 
