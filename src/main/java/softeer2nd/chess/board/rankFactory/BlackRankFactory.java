@@ -1,4 +1,4 @@
-package softeer2nd.chess.pieces.rankFactory;
+package softeer2nd.chess.board.rankFactory;
 
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import static softeer2nd.chess.pieces.PieceFactory.createPiece;
 
-public class BlackPiecesFactory implements PiecesFactory {
+public class BlackRankFactory implements RankFactory {
     List<Piece> pieceList = new ArrayList<>();
 
     @Override

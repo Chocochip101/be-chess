@@ -1,8 +1,8 @@
 package softeer2nd.chess.board;
 
+import softeer2nd.chess.board.rankFactory.*;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
-import softeer2nd.chess.pieces.rankFactory.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,18 +29,18 @@ public class Board {
 
     public void initialize() {
         board.clear();
-        board.add(Rank.initializePieces(WHITE_PIECE_ROW, new WhitePiecesFactory()));
-        board.add(Rank.initializePieces(WHITE_PAWN_ROW, new WhitePawnPiecesFactory()));
+        board.add(Rank.initializePieces(WHITE_PIECE_ROW, new WhiteRankFactory()));
+        board.add(Rank.initializePieces(WHITE_PAWN_ROW, new WhitePawnRankFactory()));
         for (int ROW : BLANK_ROW) {
-            board.add(Rank.initializePieces(ROW, new BlankPiecesFactory()));
+            board.add(Rank.initializePieces(ROW, new BlankRankFactory()));
         }
-        board.add(Rank.initializePieces(BLACK_PAWN_ROW, new BlackPawnPiecesFactory()));
-        board.add(Rank.initializePieces(BLACK_PIECE_ROW, new BlackPiecesFactory()));
+        board.add(Rank.initializePieces(BLACK_PAWN_ROW, new BlackPawnRankFactory()));
+        board.add(Rank.initializePieces(BLACK_PIECE_ROW, new BlackRankFactory()));
     }
 
     public void initializeEmpty() {
         board.clear();
-        IntStream.range(0, 8).forEach(col -> board.add(Rank.initializePieces(col, new BlankPiecesFactory())));
+        IntStream.range(0, 8).forEach(col -> board.add(Rank.initializePieces(col, new BlankRankFactory())));
     }
 
     private String getPieceResult(Rank rank) {
