@@ -102,10 +102,11 @@ class ChessGameTest {
     public void moveQueen() throws Exception {
         //given
         String sourcePosition = "d1";
-        String targetPosition = "d4";
+        String targetPosition = "d2";
 
         //when
         ChessGame chessGame = new ChessGame(board);
+        chessGame.move("d2", "d3");
         chessGame.move(sourcePosition, targetPosition);
 
         // then
@@ -141,4 +142,19 @@ class ChessGameTest {
         });
     }
 
+    @Test
+    @DisplayName("이동하려는 위치에 기물이 존재할 경우, 예외가 발생한다.")
+    public void movementImpossible() throws Exception {
+        // given
+        String source = "a1";
+        String target = "a3";
+
+        // when
+        ChessGame chessGame = new ChessGame(board);
+
+        // then
+        assertThrows(IllegalMovePositionException.class, () -> {
+            chessGame.move(source, target);
+        });
+    }
 }
