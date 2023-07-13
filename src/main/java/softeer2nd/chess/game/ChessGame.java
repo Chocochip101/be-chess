@@ -95,12 +95,45 @@ public class ChessGame {
 
         int count = getCount(sourcePoint, targetPoint);
 
+        checkPawn(targetPoint, piece, direction);
         if (piece.isMovablePositionByDirection(direction, count)
-                && isNextStepPossible(sourcePoint.getX(), sourcePoint.getY(),
-                direction, count)) {
+                && isNextStepPossible(sourcePoint.getX(), sourcePoint.getY(), direction, count)) {
             return;
         }
         throw new IllegalMovePositionException();
+    }
+
+    private void checkPawn(Point targetPoint, Piece piece, Direction direction) {
+        if (piece.getType().equals(Piece.Type.PAWN)) {
+            checkPawnDiagonal(targetPoint, piece, direction);
+        }
+    }
+
+    private void checkPawnDiagonal(Point targetPoint, Piece piece, Direction direction) {
+        if (!verifyPawnDiagonal(piece, direction, targetPoint)) {
+            throw new IllegalMovePositionException();
+        }
+    }
+
+    private boolean verifyPawnDiagonal(Piece piece, Direction direction, Point targetPoint) {
+        if (direction == Direction.SOUTH || direction == Direction.NORTH) {
+            return true;
+        }
+        if (isBlackDiagonalDirection(direction) && piece.isBlack() && !board.findPiece(targetPoint).isBlank()) {
+            return true;
+        }
+        if (isWhiteDiagonalDirection(direction) && piece.isWhite() && !board.findPiece(targetPoint).isBlank()) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isBlackDiagonalDirection(Direction direction) {
+        return direction == Direction.SOUTHEAST || direction == Direction.SOUTHWEST;
+    }
+
+    private static boolean isWhiteDiagonalDirection(Direction direction) {
+        return direction == Direction.NORTHEAST || direction == Direction.NORTHWEST;
     }
 
     private static void checkDirectionNotFound(Direction direction) {
