@@ -41,7 +41,7 @@ public class ChessGame {
         }
     }
 
-    public boolean possibleToMove(Point sourcePoint, Point targetPoint) {
+    public void possibleToMove(Point sourcePoint, Point targetPoint) {
         Piece piece = board.findPiece(sourcePoint);
 
         Direction direction = targetPoint.getDirection(sourcePoint);
@@ -50,7 +50,7 @@ public class ChessGame {
             throw new IllegalMovePositionException();
         }
         if (piece.getType() == Piece.Type.KNIGHT && isKnightMoving(direction)) {
-            return true;
+            return;
         }
 
         int count = Math.abs(targetPoint.getX() - sourcePoint.getX());
@@ -60,7 +60,7 @@ public class ChessGame {
 
         if (piece.isMovablePositionByDirection(direction, count)
                 && nextStep(sourcePoint.getX(), sourcePoint.getY(), direction, count)) {
-            return true;
+            return;
         }
         throw new IllegalMovePositionException();
     }
