@@ -38,11 +38,6 @@ public class Board {
         board.add(Rank.initializePieces(BLACK_PIECE_ROW, new BlackRankFactory()));
     }
 
-    public void initializeEmpty() {
-        board.clear();
-        IntStream.range(0, 8).forEach(col -> board.add(Rank.initializePieces(col, new BlankRankFactory())));
-    }
-
     private String getPieceResult(Rank rank) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Piece piece : rank.getPieces()) {
@@ -70,7 +65,7 @@ public class Board {
 
     public int countPieceByColorAndType(Color color, Type type) {
         int result = 0;
-        for (Rank rank : board) {
+        for (Rank rank: board) {
             result += rank.countPieceByColorAndType(color, type);
         }
         return result;
