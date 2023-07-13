@@ -19,10 +19,7 @@ public class ChessGameController {
         board.initialize();
         while (true) {
             String command = inputView.gameCommand();
-            if (isNotExistCommand(command)) {
-                outputView.printWrongCommand();
-                throw new IllegalArgumentException("잘못된 커맨드 입력입니다.");
-            }
+            isNotStartOrEndCommand(command);
             if (command.equals(END_COMMAND)) {
                 break;
             }
@@ -37,8 +34,10 @@ public class ChessGameController {
         }
     }
 
-    private static boolean isNotExistCommand(final String command) {
-        return !command.equals(START_COMMAND) && !command.equals(END_COMMAND) && !command.startsWith(MOVE_COMMAND);
+    private void isNotStartOrEndCommand(final String command) {
+        if (!command.equals(START_COMMAND) && !command.equals(END_COMMAND)) {
+            throw new IllegalArgumentException("잘못된 커맨드 입력입니다.");
+        }
     }
 
     private void move(ChessGame chessGame, String command) throws IllegalAccessException {
