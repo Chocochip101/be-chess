@@ -5,7 +5,6 @@ import softeer2nd.chess.pieces.Point;
 import softeer2nd.chess.pieces.rankFactory.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -75,28 +74,5 @@ public class Board {
             result += rank.countPieceByColorAndType(color, type);
         }
         return result;
-    }
-
-    public double calculatePoint(Color color) {
-        List<Piece> pieces = findPieceByColor(color);
-        double point = 0.0;
-        for (Piece piece : pieces) {
-            point += piece.getScores(pieces);
-        }
-        return point;
-    }
-
-    private List<Piece> findPieceByColor(Color color) {
-        List<Piece> pieces = new ArrayList<>();
-        for (Rank rank : board) {
-            pieces.addAll(rank.findPieceByColor(color));
-        }
-        return pieces;
-    }
-
-    public List<Piece> sortPieceByScore(Color color) {
-        List<Piece> pieces = findPieceByColor(color);
-        Collections.sort(pieces);
-        return pieces;
     }
 }
