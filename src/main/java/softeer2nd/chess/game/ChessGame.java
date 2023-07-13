@@ -1,6 +1,7 @@
 package softeer2nd.chess.game;
 
 import softeer2nd.chess.board.Board;
+import softeer2nd.chess.exception.BlankException;
 import softeer2nd.chess.exception.IllegalMovePositionException;
 import softeer2nd.chess.exception.OutOfBoardException;
 import softeer2nd.chess.pieces.Piece;
@@ -21,6 +22,7 @@ public class ChessGame {
         Point targetPoint = new Point(target);
         Piece piece = findPiece(source);
 
+        checkIsBlank(piece);
         verifyMovementPosition(sourcePoint, targetPoint);
         possibleToMove(sourcePoint, targetPoint);
 
@@ -29,7 +31,13 @@ public class ChessGame {
         board.getRankList().get(sourcePoint.getY()).move(sourcePoint.getX(), createBlank(sourcePoint));
     }
 
-    public void verifyMovementPosition(Point sourcePoint, Point targetPoint) {
+    private void checkIsBlank(Piece piece) {
+        if (piece.isBlank()) {
+            throw new BlankException();
+        }
+    }
+
+    private void verifyMovementPosition(Point sourcePoint, Point targetPoint) {
         if (targetPoint.equals(sourcePoint)) {
             throw new OutOfBoardException();
         }
@@ -41,11 +49,10 @@ public class ChessGame {
         }
     }
 
-    public void possibleToMove(Point sourcePoint, Point targetPoint) {
+    private void possibleToMove(Point sourcePoint, Point targetPoint) {
         Piece piece = board.findPiece(sourcePoint);
-
         Direction direction = targetPoint.getDirection(sourcePoint);
-        System.out.println(direction);
+
         if (direction.isNone()) {
             throw new IllegalMovePositionException();
         }
@@ -53,16 +60,22 @@ public class ChessGame {
             return;
         }
 
+        int count = getCount(sourcePoint, targetPoint);
+
+        if (piece.isMovablePositionByDirection(direction, count)
+                && isNextStepPossible(sourcePoint.getX(), sourcePoint.getY(),
+                direction, count)) {
+            return;
+        }
+        throw new IllegalMovePositionException();
+    }
+
+    private static int getCount(Point sourcePoint, Point targetPoint) {
         int count = Math.abs(targetPoint.getX() - sourcePoint.getX());
         if (targetPoint.getX() == sourcePoint.getX()) {
             count = Math.abs(targetPoint.getY() - sourcePoint.getY());
         }
-
-        if (piece.isMovablePositionByDirection(direction, count)
-                && isNextStepPossible(sourcePoint.getX(), sourcePoint.getY(), direction, count)) {
-            return;
-        }
-        throw new IllegalMovePositionException();
+        return count;
     }
 
     private boolean isKnightMoving(Direction direction) {
@@ -70,14 +83,16 @@ public class ChessGame {
     }
 
     private boolean isNextStepPossible(int x, int y, Direction direction, int count) {
-        if (count == 0) return true;
+        if (count <= 0) return true;
         boolean result = true;
 
-        if (board.getRankList().get(y).findPiece(x).isBlank()) {
-            int nextX = x + direction.getXDegree();
-            int nextY = y + direction.getYDegree();
-            result = isNextStepPossible(nextX, nextY, direction, count - 1);
+        int nextX = x + direction.getXDegree();
+        int nextY = y + direction.getYDegree();
+
+        if (!board.getRankList().get(nextY).findPiece(nextX).isBlank()) {
+            return false;
         }
+        isNextStepPossible(nextX, nextY, direction, count - 1);
         return result;
     }
 

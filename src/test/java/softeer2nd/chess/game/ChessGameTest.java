@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.board.Board;
+import softeer2nd.chess.exception.BlankException;
 import softeer2nd.chess.exception.IllegalMovePositionException;
 import softeer2nd.chess.exception.OutOfBoardException;
 import softeer2nd.chess.pieces.Piece;
@@ -154,6 +155,22 @@ class ChessGameTest {
 
         // then
         assertThrows(IllegalMovePositionException.class, () -> {
+            chessGame.move(source, target);
+        });
+    }
+
+    @Test
+    @DisplayName("빈 칸은 움직이려는 경우, 예외가 발생한다.")
+    public void selectedBlankPiece() throws Exception {
+        //given
+        String source = "a3";
+        String target = "a4";
+
+        // when
+        ChessGame chessGame = new ChessGame(board);
+
+        //then
+        assertThrows(BlankException.class, () -> {
             chessGame.move(source, target);
         });
     }
