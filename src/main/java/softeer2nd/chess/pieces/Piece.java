@@ -117,6 +117,12 @@ public abstract class Piece implements Comparable<Piece> {
         return type.score;
     }
 
+    public void addPiecesByColor(Color color, List<Piece> pieceList) {
+        if (isSameColor(color)) {
+            pieceList.add(this);
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

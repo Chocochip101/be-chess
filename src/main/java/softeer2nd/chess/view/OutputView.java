@@ -21,4 +21,12 @@ public class OutputView {
     public void terminateProgram() {
         System.out.println(FINISH_COMMAND);
     }
+
+    public void printWhiteScore(double score) {
+        System.out.println("White Score: " + score);
+    }
+
+    public void printBlackScore(double score) {
+        System.out.println("Black Score: " + score);
+    }
 }

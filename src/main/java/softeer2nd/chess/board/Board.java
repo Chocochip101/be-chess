@@ -66,6 +66,23 @@ public class Board {
         return board.get(y).findPiece(x);
     }
 
+    private List<Piece> findPieceByColor(Color color) {
+        List<Piece> pieces = new ArrayList<>();
+        for (Rank rank : board) {
+            pieces.addAll(rank.findPieceByColor(color));
+        }
+        return pieces;
+    }
+
+    public double calculatePoint(Color color) {
+        List<Piece> pieces = findPieceByColor(color);
+        double point = 0.0;
+        for (Piece piece : pieces) {
+            point += piece.getScores(pieces);
+        }
+        return point;
+    }
+
     public int countPieceByColorAndType(Color color, Type type) {
         int result = 0;
         for (Rank rank : board) {

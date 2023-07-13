@@ -32,7 +32,7 @@ public class Rank {
 
     public int countPieceByColorAndType(Color color, Type type) {
         int countOfPiece = 0;
-        for (Piece piece: pieces) {
+        for (Piece piece : pieces) {
             countOfPiece += checkColorType(piece, color, type) ? 1 : 0;
         }
         return countOfPiece;
@@ -40,5 +40,13 @@ public class Rank {
 
     private boolean checkColorType(Piece piece, Color color, Type type) {
         return piece.checkColorType(color, type);
+    }
+
+    public List<Piece> findPieceByColor(Color color) {
+        List<Piece> pieceList = new ArrayList<>();
+        for (Piece piece : pieces) {
+            piece.addPiecesByColor(color, pieceList);
+        }
+        return pieceList;
     }
 }

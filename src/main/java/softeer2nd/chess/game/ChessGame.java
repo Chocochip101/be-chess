@@ -8,6 +8,8 @@ import softeer2nd.chess.exception.OutOfBoardException;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
 
+import java.util.List;
+
 import static softeer2nd.chess.pieces.PieceFactory.createBlank;
 
 public class ChessGame {
@@ -121,13 +123,14 @@ public class ChessGame {
         return Direction.knightDirection().contains(direction);
     }
 
+    // TODO(code convention)
     private boolean isNextStepPossible(int x, int y, Direction direction, int count) {
         if (count <= 0) return true;
         boolean result = true;
 
         int nextX = x + direction.getXDegree();
         int nextY = y + direction.getYDegree();
-        if (!board.findPiece(nextX, nextY).isBlank()) {
+        if (count != 1 && !board.findPiece(nextX, nextY).isBlank()) {
             return false;
         }
         isNextStepPossible(nextX, nextY, direction, count - 1);

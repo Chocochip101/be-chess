@@ -3,6 +3,7 @@ package softeer2nd.chess.controller;
 import softeer2nd.chess.board.Board;
 import softeer2nd.chess.exception.*;
 import softeer2nd.chess.game.ChessGame;
+import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.view.InputView;
 import softeer2nd.chess.view.OutputView;
 
@@ -30,6 +31,8 @@ public class ChessGameController {
                 outputView.turnCommand(chessGame.getTurn());
                 String moveCommand = inputView.moveCommand();
                 if (!move(chessGame, moveCommand)) {
+                    outputView.printWhiteScore(board.calculatePoint(Piece.Color.WHITE));
+                    outputView.printBlackScore(board.calculatePoint(Piece.Color.BLACK));
                     outputView.terminateProgram();
                     break;
                 }
