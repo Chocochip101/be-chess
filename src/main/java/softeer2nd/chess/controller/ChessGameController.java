@@ -13,8 +13,7 @@ public class ChessGameController {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
 
-    // TODO(main 메서드명 변경)
-    public void main() {
+    public void startGame() {
         outputView.printStartProgram();
         Board board = new Board();
         board.initialize();
