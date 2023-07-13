@@ -8,8 +8,6 @@ import softeer2nd.chess.exception.OutOfBoardException;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
 
-import java.util.List;
-
 import static softeer2nd.chess.pieces.PieceFactory.createBlank;
 
 public class ChessGame {
