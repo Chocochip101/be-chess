@@ -121,9 +121,10 @@ public class ChessGame {
         return Direction.knightDirection().contains(direction);
     }
 
-    // TODO(code convention)
     private boolean isNextStepPossible(int x, int y, Direction direction, int count) {
-        if (count <= 0) return true;
+        if (count <= 0) {
+            return true;
+        }
         boolean result = true;
 
         int nextX = x + direction.getXDegree();
