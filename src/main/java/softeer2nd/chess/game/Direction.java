@@ -63,7 +63,7 @@ public enum Direction {
     }
 
     public static Direction getDirection(int x, int y) {
-        for (Direction direction : Direction.values()) {
+        for (Direction direction: Direction.values()) {
             if (direction.equals(x, y)) return direction;
         }
         return Direction.NONE;

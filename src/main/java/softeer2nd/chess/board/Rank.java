@@ -32,7 +32,7 @@ public class Rank {
 
     public int countPieceByColorAndType(Color color, Type type) {
         int countOfPiece = 0;
-        for (Piece piece : pieces) {
+        for (Piece piece: pieces) {
             countOfPiece += checkColorType(piece, color, type) ? 1 : 0;
         }
         return countOfPiece;

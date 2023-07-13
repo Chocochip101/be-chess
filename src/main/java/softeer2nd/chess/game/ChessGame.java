@@ -59,7 +59,7 @@ public class ChessGame {
         }
 
         if (piece.isMovablePositionByDirection(direction, count)
-                && nextStep(sourcePoint.getX(), sourcePoint.getY(), direction, count)) {
+                && isNextStepPossible(sourcePoint.getX(), sourcePoint.getY(), direction, count)) {
             return;
         }
         throw new IllegalMovePositionException();
@@ -69,14 +69,14 @@ public class ChessGame {
         return Direction.knightDirection().contains(direction);
     }
 
-    private boolean nextStep(int x, int y, Direction direction, int count) {
+    private boolean isNextStepPossible(int x, int y, Direction direction, int count) {
         if (count == 0) return true;
         boolean result = true;
 
         if (board.getRankList().get(y).findPiece(x).isBlank()) {
-            int nextRow = x + direction.getXDegree();
-            int nextCol = y + direction.getYDegree();
-            result &= nextStep(nextRow, nextCol, direction, count - 1);
+            int nextX = x + direction.getXDegree();
+            int nextY = y + direction.getYDegree();
+            result = isNextStepPossible(nextX, nextY, direction, count - 1);
         }
         return result;
     }

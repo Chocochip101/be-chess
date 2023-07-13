@@ -1,10 +1,7 @@
 package softeer2nd.chess.pieces;
 
-import softeer2nd.chess.board.Board;
-import softeer2nd.chess.exception.IllegalMovePositionException;
 import softeer2nd.chess.game.Direction;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,9 +23,6 @@ public abstract class Piece implements Comparable<Piece> {
     public final static double KING_SCORE = 0.0;
     public final static double NO_PIECE_SCORE = 0.0;
     public final static double SUBTRACT_SCORE_SAME_LINE = 0.5;
-    public final static int BOARD_MAX = 7;
-    public final static int BOARD_MIN = 1;
-    public final static int KING_DISTANCE = 1;
 
     public enum Color {
         WHITE, BLACK, NOCOLOR;
@@ -105,13 +99,6 @@ public abstract class Piece implements Comparable<Piece> {
         return checkColor(Color.WHITE) ? type.getWhiteRepresentation() : type.getBlackRepresentation();
     }
 
-    public void addPiecesByColor(Color color, List<Piece> pieceList) {
-        if (checkColor(color)) {
-            pieceList.add(this);
-        }
-    }
-
-
     public abstract boolean isMovablePositionByDirection(Direction direction, int count);
 
     public boolean checkColorType(Color color, Type type) {
@@ -122,14 +109,13 @@ public abstract class Piece implements Comparable<Piece> {
         if (this.type != Type.PAWN) {
             return type.getScore();
         }
-        for (Point point : this.getPoint().SameCol()) {
+        for (Point point: this.getPoint().SameCol()) {
             if (pieces.contains(createPiece(this.color, this.type, point))) {
                 return type.getScore() - SUBTRACT_SCORE_SAME_LINE;
             }
         }
         return type.score;
     }
-
 
     @Override
     public boolean equals(Object o) {
