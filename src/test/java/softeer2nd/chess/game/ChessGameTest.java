@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import softeer2nd.chess.board.Board;
 import softeer2nd.chess.exception.BlankException;
 import softeer2nd.chess.exception.IllegalMovePositionException;
+import softeer2nd.chess.exception.IllegalTurnException;
 import softeer2nd.chess.exception.OutOfBoardException;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
@@ -16,11 +17,13 @@ import static softeer2nd.chess.pieces.PieceFactory.createPiece;
 
 class ChessGameTest {
     private Board board;
+    private ChessGame chessGame;
 
     @BeforeEach
     void setup() {
         board = new Board();
         board.initialize();
+        chessGame = new ChessGame(board);
     }
 
     @Test
@@ -31,7 +34,6 @@ class ChessGameTest {
         String targetPosition = "b3";
 
         // when
-        ChessGame chessGame = new ChessGame(board);
         chessGame.move(sourcePosition, targetPosition);
 
         // then
@@ -41,14 +43,15 @@ class ChessGameTest {
 
     @Test
     @DisplayName("킹의 이동을 구현한다.")
-    public void moveKing() throws Exception {
+    public void moveKing() {
         // given
         ChessGame chessGame = new ChessGame(board);
         chessGame.move("e2", "e3");
-        String sourcePosition = "e1";
-        String targetPosition = "e2";
+        chessGame.move("a7", "a6");
 
         // when
+        String sourcePosition = "e1";
+        String targetPosition = "e2";
         chessGame.move(sourcePosition, targetPosition);
 
         // then
@@ -62,7 +65,6 @@ class ChessGameTest {
         //given
         String sourcePosition = "e1";
         String targetPosition = "e0";
-        ChessGame chessGame = new ChessGame(board);
 
         //when&then
         assertThrows(OutOfBoardException.class, () -> {
@@ -76,7 +78,6 @@ class ChessGameTest {
         //given
         String sourcePosition = "e1";
         String targetPosition = "e2";
-        ChessGame chessGame = new ChessGame(board);
 
         //when&then
         assertThrows(IllegalMovePositionException.class, () -> {
@@ -90,7 +91,6 @@ class ChessGameTest {
         //given
         String sourcePosition = "e1";
         String targetPosition = "e3";
-        ChessGame chessGame = new ChessGame(board);
 
         //when&then
         assertThrows(IllegalMovePositionException.class, () -> {
@@ -102,12 +102,12 @@ class ChessGameTest {
     @DisplayName("퀸의 이동을 구현한다.")
     public void moveQueen() throws Exception {
         //given
-        String sourcePosition = "d1";
-        String targetPosition = "d2";
+        chessGame.move("d2", "d3");
+        chessGame.move("a7", "a6");
 
         //when
-        ChessGame chessGame = new ChessGame(board);
-        chessGame.move("d2", "d3");
+        String sourcePosition = "d1";
+        String targetPosition = "d2";
         chessGame.move(sourcePosition, targetPosition);
 
         // then
@@ -121,7 +121,6 @@ class ChessGameTest {
         //given
         String sourcePosition = "d1";
         String targetPosition = "d0";
-        ChessGame chessGame = new ChessGame(board);
 
         //when&then
         assertThrows(OutOfBoardException.class, () -> {
@@ -172,6 +171,18 @@ class ChessGameTest {
         //then
         assertThrows(BlankException.class, () -> {
             chessGame.move(source, target);
+        });
+    }
+
+    @Test
+    @DisplayName("해당 턴이 아닐 시, 예외가 발생한다.")
+    public void turnExceptionTest() throws Exception {
+        //given
+        chessGame.move("d2", "d3");
+
+        //when&then
+        assertThrows(IllegalTurnException.class, () -> {
+            chessGame.move("a2", "a3");
         });
     }
 }

@@ -1,7 +1,7 @@
 package softeer2nd.chess.controller;
 
 import softeer2nd.chess.board.Board;
-import softeer2nd.chess.exception.WrongCommandException;
+import softeer2nd.chess.exception.*;
 import softeer2nd.chess.game.ChessGame;
 import softeer2nd.chess.view.InputView;
 import softeer2nd.chess.view.OutputView;
@@ -19,6 +19,7 @@ public class ChessGameController {
         outputView.printStartProgram();
         Board board = new Board();
         board.initialize();
+        ChessGame chessGame = new ChessGame(board);
         while (true) {
             try {
                 String command = inputView.gameCommand();
@@ -26,11 +27,11 @@ public class ChessGameController {
                 if (command.equals(END_COMMAND)) {
                     break;
                 }
-                ChessGame chessGame = new ChessGame(board);
                 String moveCommand = inputView.moveCommand();
                 move(chessGame, moveCommand);
                 outputView.print(board.showBoard());
-            } catch (WrongCommandException e) {
+            } catch (WrongCommandException | IllegalTurnException | OutOfBoardException | BlankException |
+                     IllegalMovePositionException e) {
                 outputView.print(e.getMessage());
             }
         }

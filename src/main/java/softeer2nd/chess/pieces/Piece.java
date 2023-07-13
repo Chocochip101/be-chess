@@ -64,18 +64,18 @@ public abstract class Piece implements Comparable<Piece> {
     }
 
     public boolean isWhite() {
-        return checkColor(Color.WHITE);
+        return isSameColor(Color.WHITE);
     }
 
     public boolean isBlack() {
-        return checkColor(Color.BLACK);
+        return isSameColor(Color.BLACK);
     }
 
     public boolean isBlank() {
         return type.equals(Type.NO_PIECE);
     }
 
-    private boolean checkColor(Color color) {
+    public boolean isSameColor(Color color) {
         return this.color.equals(color);
     }
 
@@ -96,7 +96,7 @@ public abstract class Piece implements Comparable<Piece> {
     }
 
     public char getRepresentation() {
-        return checkColor(Color.WHITE) ? type.getWhiteRepresentation() : type.getBlackRepresentation();
+        return isSameColor(Color.WHITE) ? type.getWhiteRepresentation() : type.getBlackRepresentation();
     }
 
     public abstract boolean isMovablePositionByDirection(Direction direction, int count);
@@ -109,7 +109,7 @@ public abstract class Piece implements Comparable<Piece> {
         if (this.type != Type.PAWN) {
             return type.getScore();
         }
-        for (Point point: this.getPoint().SameCol()) {
+        for (Point point : this.getPoint().SameCol()) {
             if (pieces.contains(createPiece(this.color, this.type, point))) {
                 return type.getScore() - SUBTRACT_SCORE_SAME_LINE;
             }

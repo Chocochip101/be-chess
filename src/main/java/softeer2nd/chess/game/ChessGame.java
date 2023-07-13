@@ -3,6 +3,7 @@ package softeer2nd.chess.game;
 import softeer2nd.chess.board.Board;
 import softeer2nd.chess.exception.BlankException;
 import softeer2nd.chess.exception.IllegalMovePositionException;
+import softeer2nd.chess.exception.IllegalTurnException;
 import softeer2nd.chess.exception.OutOfBoardException;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
@@ -12,23 +13,41 @@ import static softeer2nd.chess.pieces.PieceFactory.createBlank;
 public class ChessGame {
     private final static int BOARD_SIZE = 7;
     private final Board board;
+    private Piece.Color turnColor;
 
     public ChessGame(Board board) {
         this.board = board;
+        this.turnColor = Piece.Color.WHITE;
     }
 
     public void move(String source, String target) {
         Point sourcePoint = new Point(source);
         Point targetPoint = new Point(target);
-        Piece piece = board.findPiece(source);
+        Piece piece = board.findPiece(sourcePoint.getX(), sourcePoint.getY());
 
         checkIsBlank(piece);
+        checkTurnColor(piece);
         verifyMovementPosition(sourcePoint, targetPoint);
         possibleToMove(sourcePoint, targetPoint);
 
         board.getRankList().get(targetPoint.getY()).move(targetPoint.getX(), piece);
         piece.setPoint(targetPoint);
         board.getRankList().get(sourcePoint.getY()).move(sourcePoint.getX(), createBlank(sourcePoint));
+        flipTurnColor();
+    }
+
+    private void checkTurnColor(Piece piece) {
+        if (!piece.isSameColor(turnColor)) {
+            throw new IllegalTurnException();
+        }
+    }
+
+    private void flipTurnColor() {
+        if (this.turnColor.equals(Piece.Color.WHITE)) {
+            this.turnColor = Piece.Color.BLACK;
+        } else {
+            this.turnColor = Piece.Color.WHITE;
+        }
     }
 
     private void checkIsBlank(Piece piece) {
