@@ -36,6 +36,10 @@ public class ChessGame {
         flipTurnColor();
     }
 
+    public Piece.Color getTurn() {
+        return this.turnColor;
+    }
+
     private void checkTurnColor(Piece piece) {
         if (!piece.isSameColor(turnColor)) {
             throw new IllegalTurnException();

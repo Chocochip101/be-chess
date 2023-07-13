@@ -20,18 +20,22 @@ public class ChessGameController {
         Board board = new Board();
         board.initialize();
         ChessGame chessGame = new ChessGame(board);
+        String command = inputView.gameCommand();
+        isNotStartOrEndCommand(command);
+        if (command.equals(END_COMMAND)) {
+            return;
+        }
         while (true) {
             try {
-                String command = inputView.gameCommand();
-                isNotStartOrEndCommand(command);
-                if (command.equals(END_COMMAND)) {
+                outputView.turnCommand(chessGame.getTurn());
+                String moveCommand = inputView.moveCommand();
+                if (!move(chessGame, moveCommand)) {
+                    outputView.terminateProgram();
                     break;
                 }
-                String moveCommand = inputView.moveCommand();
-                move(chessGame, moveCommand);
                 outputView.print(board.showBoard());
-            } catch (WrongCommandException | IllegalTurnException | OutOfBoardException | BlankException |
-                     IllegalMovePositionException e) {
+            } catch (WrongCommandException | IllegalTurnException | OutOfBoardException |
+                     BlankException | IllegalMovePositionException e) {
                 outputView.print(e.getMessage());
             }
         }
@@ -43,11 +47,17 @@ public class ChessGameController {
         }
     }
 
-    private void move(ChessGame chessGame, String command) {
+    private boolean move(ChessGame chessGame, String command) {
         String[] parsedResult = parseCommand(command);
+        if (checkEndCommand(parsedResult)) return false;
         isWrongMoveCommand(parsedResult);
         isNotMoveCommand(parsedResult[0]);
         chessGame.move(parsedResult[1], parsedResult[2]);
+        return true;
+    }
+
+    private static boolean checkEndCommand(String[] parsedResult) {
+        return parsedResult.length == 1 && parsedResult[0].equals(END_COMMAND);
     }
 
     private String[] parseCommand(final String command) {
