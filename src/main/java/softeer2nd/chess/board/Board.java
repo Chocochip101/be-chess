@@ -6,7 +6,6 @@ import softeer2nd.chess.pieces.Point;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import static softeer2nd.chess.pieces.Piece.*;
 import static softeer2nd.chess.utils.StringUtils.appendNewLine;
@@ -63,9 +62,13 @@ public class Board {
         return board.get(p.getY()).findPiece(p.getX());
     }
 
+    public Piece findPiece(int x, int y) {
+        return board.get(y).findPiece(x);
+    }
+
     public int countPieceByColorAndType(Color color, Type type) {
         int result = 0;
-        for (Rank rank: board) {
+        for (Rank rank : board) {
             result += rank.countPieceByColorAndType(color, type);
         }
         return result;

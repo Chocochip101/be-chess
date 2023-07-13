@@ -20,7 +20,7 @@ public class ChessGame {
     public void move(String source, String target) {
         Point sourcePoint = new Point(source);
         Point targetPoint = new Point(target);
-        Piece piece = findPiece(source);
+        Piece piece = board.findPiece(source);
 
         checkIsBlank(piece);
         verifyMovementPosition(sourcePoint, targetPoint);
@@ -65,9 +65,7 @@ public class ChessGame {
         Piece piece = board.findPiece(sourcePoint);
         Direction direction = targetPoint.getDirection(sourcePoint);
 
-        if (direction.isNone()) {
-            throw new IllegalMovePositionException();
-        }
+        checkDirectionNotFound(direction);
         if (piece.getType() == Piece.Type.KNIGHT && isKnightMoving(direction)) {
             return;
         }
@@ -80,6 +78,12 @@ public class ChessGame {
             return;
         }
         throw new IllegalMovePositionException();
+    }
+
+    private static void checkDirectionNotFound(Direction direction) {
+        if (direction.isNone()) {
+            throw new IllegalMovePositionException();
+        }
     }
 
     private static int getCount(Point sourcePoint, Point targetPoint) {
@@ -100,16 +104,10 @@ public class ChessGame {
 
         int nextX = x + direction.getXDegree();
         int nextY = y + direction.getYDegree();
-
-        if (!board.getRankList().get(nextY).findPiece(nextX).isBlank()) {
+        if (!board.findPiece(nextX, nextY).isBlank()) {
             return false;
         }
         isNextStepPossible(nextX, nextY, direction, count - 1);
         return result;
-    }
-
-    public Piece findPiece(String strPoint) {
-        Point p = new Point(strPoint);
-        return board.getRankList().get(p.getY()).findPiece(p.getX());
     }
 }
