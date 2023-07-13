@@ -22,7 +22,11 @@ public class ChessGameController {
         board.initialize();
         ChessGame chessGame = new ChessGame(board);
         String command = inputView.gameCommand();
-        isNotStartOrEndCommand(command);
+        try {
+            isNotStartOrEndCommand(command);
+        } catch (WrongCommandException e) {
+            outputView.print(e.getMessage());
+        }
         if (command.equals(END_COMMAND)) {
             return;
         }

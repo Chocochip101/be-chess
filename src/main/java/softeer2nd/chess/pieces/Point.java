@@ -34,6 +34,15 @@ public class Point {
     public Direction getDirection(Point targetPoint) {
         int dX = getX() - targetPoint.getX();
         int dY = getY() - targetPoint.getY();
+        if (dX == 0) {
+            return Direction.getDirection(0, dY);
+        }
+        if (dY == 0) {
+            return Direction.getDirection(dX, 0);
+        }
+        if (Math.abs(dX) == Math.abs(dY)) {
+            return Direction.getDirection(dX / Math.abs(dX), dY / Math.abs(dY));
+        }
         return Direction.getDirection(dX, dY);
     }
 

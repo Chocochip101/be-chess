@@ -62,7 +62,8 @@ public class ChessGame {
 
     private void verifyMovementPosition(Point sourcePoint, Point targetPoint) {
         checkSourceAndTargetIsSame(sourcePoint, targetPoint);
-        verifyTargetBound(targetPoint);
+        verifyBoardBound(sourcePoint);
+        verifyBoardBound(targetPoint);
         checkSourceAndTargetColor(sourcePoint, targetPoint);
     }
 
@@ -72,7 +73,7 @@ public class ChessGame {
         }
     }
 
-    private static void verifyTargetBound(Point targetPoint) {
+    private static void verifyBoardBound(Point targetPoint) {
         if (targetPoint.getY() < 0 || targetPoint.getY() > BOARD_SIZE || targetPoint.getX() < 0 || targetPoint.getX() > BOARD_SIZE) {
             throw new OutOfBoardException();
         }
