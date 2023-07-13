@@ -16,7 +16,7 @@ public class ChessGame {
         this.board = board;
     }
 
-    public void move(String source, String target) throws IllegalAccessException {
+    public void move(String source, String target) {
         Point sourcePoint = new Point(source);
         Point targetPoint = new Point(target);
         Piece piece = findPiece(source);
