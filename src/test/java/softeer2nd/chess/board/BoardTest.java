@@ -11,6 +11,7 @@ import softeer2nd.chess.pieces.Point;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static softeer2nd.chess.pieces.PieceFactory.createPiece;
 import static softeer2nd.chess.utils.StringUtils.appendNewLine;
 
 
@@ -54,10 +55,10 @@ public class BoardTest {
         Point p4 = new Point("h1");
 
         //when
-        Piece createdBlackRook1 = Piece.createBlackRook(p1);
-        Piece createdBlackRook2 = Piece.createBlackRook(p2);
-        Piece createdWhiteRook1 = Piece.createWhiteRook(p3);
-        Piece createdWhiteRook2 = Piece.createWhiteRook(p4);
+        Piece createdBlackRook1 = createPiece(Piece.Color.BLACK, Piece.Type.ROOK, p1);
+        Piece createdBlackRook2 = createPiece(Piece.Color.BLACK, Piece.Type.ROOK, p2);
+        Piece createdWhiteRook1 = createPiece(Piece.Color.WHITE, Piece.Type.ROOK, p3);
+        Piece createdWhiteRook2 = createPiece(Piece.Color.WHITE, Piece.Type.ROOK, p4);
 
         //then
         assertEquals(createdBlackRook1, board.findPiece("a8"));
@@ -75,9 +76,9 @@ public class BoardTest {
         Point p3 = new Point(1, 1);
 
         //when
-        Piece.createBlackRook(p1);
-        Piece.createBlackRook(p2);
-        Piece.createBlackRook(p3);
+        createPiece(Piece.Color.BLACK, Piece.Type.ROOK, p1);
+        createPiece(Piece.Color.BLACK, Piece.Type.ROOK, p2);
+        createPiece(Piece.Color.BLACK, Piece.Type.ROOK, p3);
 
         //then
         assertEquals(2, board.countPieceByColorAndType(Piece.Color.BLACK, Piece.Type.ROOK));

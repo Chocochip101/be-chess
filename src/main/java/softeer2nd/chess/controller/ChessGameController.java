@@ -13,6 +13,7 @@ public class ChessGameController {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
 
+    // TODO(main 메서드명 변경)
     public void main() {
         outputView.printStartProgram();
         Board board = new Board();
@@ -26,11 +27,14 @@ public class ChessGameController {
             if (command.equals(END_COMMAND)) {
                 break;
             }
-
-            ChessGame chessGame = new ChessGame(board);
-            String moveCommand = inputView.moveCommand();
-            move(chessGame, moveCommand);
-            outputView.print(board.showBoard());
+            try {
+                ChessGame chessGame = new ChessGame(board);
+                String moveCommand = inputView.moveCommand();
+                move(chessGame, moveCommand);
+                outputView.print(board.showBoard());
+            } catch (IllegalAccessException e) {
+                outputView.print(e.toString());
+            }
         }
     }
 
@@ -38,7 +42,7 @@ public class ChessGameController {
         return !command.equals(START_COMMAND) && !command.equals(END_COMMAND) && !command.startsWith(MOVE_COMMAND);
     }
 
-    private void move(ChessGame chessGame, String command) {
+    private void move(ChessGame chessGame, String command) throws IllegalAccessException {
         String[] parsedResult = parseCommand(command);
         chessGame.move(parsedResult[1], parsedResult[2]);
     }

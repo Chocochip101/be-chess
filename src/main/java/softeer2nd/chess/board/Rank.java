@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import softeer2nd.chess.pieces.Piece.*;
-import softeer2nd.chess.pieces.factory.PiecesFactory;
+import softeer2nd.chess.pieces.rankFactory.PiecesFactory;
 
 public class Rank {
 
@@ -18,7 +18,7 @@ public class Rank {
 
     public static Rank initializePieces(int index, PiecesFactory piecesFactory) {
         Rank rank = new Rank();
-        rank.pieces = piecesFactory.createPiece(index);
+        rank.pieces = piecesFactory.createPieces(index);
         return rank;
     }
 

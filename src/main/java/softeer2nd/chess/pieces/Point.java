@@ -1,5 +1,7 @@
 package softeer2nd.chess.pieces;
 
+import softeer2nd.chess.game.Direction;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,6 +31,12 @@ public class Point {
         return y - 1;
     }
 
+    public Direction getDirection(Point targetPoint) {
+        int dX = getX() - targetPoint.getX();
+        int dY = getY() - targetPoint.getY();
+        return Direction.getDirection(dX, dY);
+    }
+
     public List<Point> SameCol() {
         List<Point> positions = new ArrayList<>();
         IntStream.rangeClosed(0, ROW_COUNT)
@@ -40,7 +48,6 @@ public class Point {
 
         return positions;
     }
-
 
     @Override
     public boolean equals(Object o) {

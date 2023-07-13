@@ -2,12 +2,15 @@ package softeer2nd.chess.pieces;
 
 import softeer2nd.chess.board.Board;
 import softeer2nd.chess.exception.IllegalMovePositionException;
-import softeer2nd.chess.exception.OutOfBoardException;
+import softeer2nd.chess.game.Direction;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Piece implements Comparable<Piece> {
+import static softeer2nd.chess.pieces.PieceFactory.createPiece;
+
+public abstract class Piece implements Comparable<Piece> {
     public final static char PAWN_REPRESENTATION = 'p';
     public final static char ROOK_REPRESENTATION = 'r';
     public final static char KNIGHT_REPRESENTATION = 'n';
@@ -60,70 +63,10 @@ public class Piece implements Comparable<Piece> {
     private final Type type;
     private Point point;
 
-    private Piece(Color color, Type type, Point point) {
+    protected Piece(Color color, Type type, Point point) {
         this.color = color;
         this.type = type;
         this.point = point;
-    }
-
-    private static Piece creatWhite(Type type, Point point) {
-        return new Piece(Color.WHITE, type, point);
-    }
-
-    private static Piece creatBlack(Type type, Point point) {
-        return new Piece(Color.BLACK, type, point);
-    }
-
-    public static Piece createWhitePawn(Point point) {
-        return creatWhite(Type.PAWN, point);
-    }
-
-    public static Piece createBlackPawn(Point point) {
-        return creatBlack(Type.PAWN, point);
-    }
-
-    public static Piece createWhiteRook(Point point) {
-        return creatWhite(Type.ROOK, point);
-    }
-
-    public static Piece createBlackRook(Point point) {
-        return creatBlack(Type.ROOK, point);
-    }
-
-    public static Piece createWhiteKnight(Point point) {
-        return creatWhite(Type.KNIGHT, point);
-    }
-
-    public static Piece createBlackKnight(Point point) {
-        return creatBlack(Type.KNIGHT, point);
-    }
-
-    public static Piece createWhiteBishop(Point point) {
-        return creatWhite(Type.BISHOP, point);
-    }
-
-    public static Piece createBlackBishop(Point point) {
-        return creatBlack(Type.BISHOP, point);
-    }
-
-    public static Piece createWhiteQueen(Point point) {
-        return creatWhite(Type.QUEEN, point);
-    }
-
-    public static Piece createBlackQueen(Point point) {
-        return creatBlack(Type.QUEEN, point);
-    }
-
-    public static Piece createWhiteKing(Point point) {
-        return creatWhite(Type.KING, point);
-    }
-
-    public static Piece createBlackKing(Point point) {
-        return creatBlack(Type.KING, point);
-    }
-
-    public static Piece createBlank(Point point) {
-        return new Piece(Color.NOCOLOR, Type.NO_PIECE, point);
     }
 
     public boolean isWhite() {
@@ -132,6 +75,10 @@ public class Piece implements Comparable<Piece> {
 
     public boolean isBlack() {
         return checkColor(Color.BLACK);
+    }
+
+    public boolean isBlank() {
+        return type.equals(Type.NO_PIECE);
     }
 
     private boolean checkColor(Color color) {
@@ -164,6 +111,9 @@ public class Piece implements Comparable<Piece> {
         }
     }
 
+
+    public abstract boolean isMovablePositionByDirection(Direction direction, int count);
+
     public boolean checkColorType(Color color, Type type) {
         return (this.color == color) && (this.type == type);
     }
@@ -173,62 +123,13 @@ public class Piece implements Comparable<Piece> {
             return type.getScore();
         }
         for (Point point : this.getPoint().SameCol()) {
-            if (pieces.contains(new Piece(this.color, this.type, point))) {
+            if (pieces.contains(createPiece(this.color, this.type, point))) {
                 return type.getScore() - SUBTRACT_SCORE_SAME_LINE;
             }
         }
         return type.score;
     }
 
-    public boolean canMove(Board board, String target) {
-        if (getRepresentation() == 'k') {
-            return moveKing(board, target);
-        }
-        if (getRepresentation() == 'q') {
-            return moveQueen(target);
-        }
-        return true;
-    }
-
-    private boolean moveKing(Board board, String target) {
-        Point targetPoint = new Point(target);
-        int targetX = targetPoint.getX();
-        int targetY = targetPoint.getY();
-        int sourceX = point.getX();
-        int sourceY = point.getY();
-        if (targetPoint.equals(point)) {
-            throw new IllegalMovePositionException();
-        }
-        if (targetX > BOARD_MAX || targetX < BOARD_MIN || targetY > BOARD_MAX || targetY < BOARD_MIN) {
-            throw new OutOfBoardException();
-        }
-        if (Math.abs((sourceY - targetY)) > KING_DISTANCE || Math.abs((sourceX - targetX)) > KING_DISTANCE) {
-            throw new IllegalMovePositionException();
-        }
-        if (board.findPiece(target).getColor().equals(this.color)) {
-            throw new IllegalMovePositionException();
-        }
-        return true;
-    }
-
-    private boolean moveQueen(String target) {
-        Point targetPoint = new Point(target);
-        int targetX = targetPoint.getX();
-        int targetY = targetPoint.getY();
-        int thisX = point.getX();
-        int thisY = point.getY();
-
-        if (targetX > BOARD_MAX || targetX < BOARD_MIN || targetY > BOARD_MAX || targetY < BOARD_MIN) {
-            throw new OutOfBoardException();
-        }
-        if (targetPoint.equals(point)) {
-            throw new IllegalMovePositionException();
-        }
-        if (targetX != thisX && targetY != thisY) {
-            throw new IllegalMovePositionException();
-        }
-        return true;
-    }
 
     @Override
     public boolean equals(Object o) {

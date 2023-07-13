@@ -1,9 +1,8 @@
 package softeer2nd.chess.board;
 
-import softeer2nd.chess.game.ChessGame;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
-import softeer2nd.chess.pieces.factory.*;
+import softeer2nd.chess.pieces.rankFactory.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,6 +62,10 @@ public class Board {
 
     public Piece findPiece(String strPoint) {
         Point p = new Point(strPoint);
+        return board.get(p.getY()).findPiece(p.getX());
+    }
+
+    public Piece findPiece(Point p) {
         return board.get(p.getY()).findPiece(p.getX());
     }
 

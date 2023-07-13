@@ -20,8 +20,8 @@ public enum Direction {
     EEN(2, 1),
     EES(2, -1),
     WWN(-2, 1),
-    WWS(-2, -1);
-
+    WWS(-2, -1),
+    NONE(0, 0);
     private int xDegree;
     private int yDegree;
 
@@ -60,5 +60,22 @@ public enum Direction {
 
     public static List<Direction> blackPawnDirection() {
         return Arrays.asList(SOUTH, SOUTHEAST, SOUTHWEST);
+    }
+
+    public static Direction getDirection(int x, int y) {
+        for (Direction direction : Direction.values()) {
+            if (direction.equals(x, y)) return direction;
+        }
+        return Direction.NONE;
+    }
+
+    private boolean equals(int x, int y) {
+        if (x == 0) y /= Math.abs(y);
+        else if (y == 0) x /= Math.abs(x);
+        return xDegree == x && yDegree == y;
+    }
+
+    public boolean isNone() {
+        return this == NONE;
     }
 }

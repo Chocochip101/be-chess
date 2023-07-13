@@ -10,6 +10,8 @@ import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Point;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static softeer2nd.chess.pieces.PieceFactory.createBlank;
+import static softeer2nd.chess.pieces.PieceFactory.createPiece;
 
 class ChessGameTest {
     private Board board;
@@ -32,8 +34,8 @@ class ChessGameTest {
         chessGame.move(sourcePosition, targetPosition);
 
         // then
-        assertTrue(Piece.createBlank(new Point(sourcePosition)).equals(board.findPiece(sourcePosition)));
-        assertTrue(Piece.createWhitePawn(new Point(targetPosition)).equals(board.findPiece(targetPosition)));
+        assertTrue(createBlank(new Point(sourcePosition)).equals(board.findPiece(sourcePosition)));
+        assertTrue(createPiece(Piece.Color.WHITE, Piece.Type.PAWN, new Point(targetPosition)).equals(board.findPiece(targetPosition)));
     }
 
     @Test
@@ -113,7 +115,7 @@ class ChessGameTest {
 
     @Test
     @DisplayName("퀸은 체스판 밖으로 이동할 수 없다.")
-    public void QueenOutofBoard() throws Exception {
+    public void QueenOutOfBoard() throws Exception {
         //given
         String sourcePosition = "d1";
         String targetPosition = "d0";

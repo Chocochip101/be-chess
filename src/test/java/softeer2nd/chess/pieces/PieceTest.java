@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static softeer2nd.chess.pieces.Piece.*;
+import static softeer2nd.chess.pieces.PieceFactory.createPiece;
 
 public class PieceTest {
     private Point pointZero;
@@ -17,7 +18,8 @@ public class PieceTest {
     void setup() {
         pointZero = new Point(0, 0);
         pointOne = new Point(1, 1);
-        whitePawn = createWhitePawn(pointZero);
+
+        whitePawn = createPiece(Color.WHITE, Type.PAWN, pointZero);
     }
 
     @DisplayName("Piece의 색상을 비교한다.")
@@ -34,7 +36,7 @@ public class PieceTest {
     @DisplayName("createPawn으로 생성된 폰의 color와 representation을 검증한다.")
     public void create_piece_pawn() {
         //given&when
-        Piece blackPawn = createBlackPawn(pointOne);
+        Piece blackPawn = createPiece(Color.BLACK, Type.PAWN, pointOne);
 
         // then
         verifyPiece(whitePawn, blackPawn, Type.PAWN);
@@ -44,8 +46,8 @@ public class PieceTest {
     @DisplayName("createRook으로 생성된 폰의 color와 representation을 검증한다.")
     public void create_piece_rook() {
         //given&when
-        Piece whiteRook = createWhiteRook(pointZero);
-        Piece blackRook = createBlackRook(pointOne);
+        Piece whiteRook = createPiece(Color.WHITE, Type.ROOK, pointZero);
+        Piece blackRook = createPiece(Color.BLACK, Type.ROOK, pointOne);
 
         //then
         verifyPiece(whiteRook, blackRook, Type.ROOK);
@@ -55,8 +57,8 @@ public class PieceTest {
     @DisplayName("createBishop으로 생성된 폰의 color와 representation을 검증한다.")
     public void create_piece_bishop() {
         //given&when
-        Piece whiteBishop = createWhiteBishop(pointZero);
-        Piece blackBishop = createBlackBishop(pointOne);
+        Piece whiteBishop = createPiece(Color.WHITE, Type.BISHOP, pointZero);
+        Piece blackBishop = createPiece(Color.BLACK, Type.BISHOP, pointOne);
 
         //then
         verifyPiece(whiteBishop, blackBishop, Type.BISHOP);
@@ -66,8 +68,8 @@ public class PieceTest {
     @DisplayName("createKnight으로 생성된 폰의 color와 representation을 검증한다.")
     public void create_piece_knight() {
         //given&when
-        Piece whiteKnight = createWhiteKnight(pointOne);
-        Piece blackKnight = createBlackKnight(pointZero);
+        Piece whiteKnight = createPiece(Color.WHITE, Type.KNIGHT, pointZero);
+        Piece blackKnight = createPiece(Color.BLACK, Type.KNIGHT, pointOne);
 
         //then
         verifyPiece(whiteKnight, blackKnight, Type.KNIGHT);
@@ -77,8 +79,8 @@ public class PieceTest {
     @DisplayName("createQueen으로 생성된 폰의 color와 representation을 검증한다.")
     public void create_piece_queen() {
         //given&when
-        Piece whiteQueen = createWhiteQueen(pointOne);
-        Piece blackQueen = createBlackQueen(pointZero);
+        Piece whiteQueen = createPiece(Color.WHITE, Type.QUEEN, pointZero);
+        Piece blackQueen = createPiece(Color.BLACK, Type.QUEEN, pointOne);
 
         //then
         verifyPiece(whiteQueen, blackQueen, Type.QUEEN);
@@ -88,24 +90,13 @@ public class PieceTest {
     @DisplayName("createKing으로 생성된 폰의 color와 representation을 검증한다.")
     public void create_piece_king() {
         //given&when
-        Piece whiteKing = createWhiteKing(pointOne);
-        Piece blackKing = createBlackKing(pointZero);
+        Piece whiteKing = createPiece(Color.WHITE, Type.KING, pointZero);
+        Piece blackKing = createPiece(Color.BLACK, Type.KING, pointOne);
 
         //then
         verifyPiece(whiteKing, blackKing, Type.KING);
     }
 
-    @Test
-    @DisplayName("비어있는 Piece의 생성을 검증한다.")
-    public void blankPieceTest() {
-        //given&when
-        Piece blank = Piece.createBlank(pointZero);
-
-        //then
-        assertFalse(blank.isWhite());
-        assertFalse(blank.isBlack());
-        assertEquals(Type.NO_PIECE, blank.getType());
-    }
 
     @Test
     @DisplayName("isWhite()과 isBlack()을 검증한다.")
